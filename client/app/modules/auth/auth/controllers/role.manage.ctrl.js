@@ -161,6 +161,10 @@ angular.module('app.auth')
                 });
         };
 
+        $scope.editPrincipalSubmit = function (){
+            
+        }
+
         $scope.cancel = function (p) {
             $scope[p] = false;
         }
