@@ -1,0 +1,26 @@
+{
+    "name": "user",
+    "base": "User",
+    "idInjection": true,
+    "properties": {
+        "description": {
+            "type": "string"
+        }
+    },
+    "relations": {
+        "roles": {
+            "type": "hasMany",
+            "model": "role",
+            "through": "Role_User",
+            "foreignKey": "userId"
+        }
+    },
+    "acls": [
+        {
+            "accessType": "*",
+            "permission": "ALLOW",
+            "principalType": "ROLE",
+            "principalId": "$unauthenticated"
+        }
+    ]
+}

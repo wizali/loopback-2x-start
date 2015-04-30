@@ -1,0 +1,17 @@
+{
+    "name": "Role_User",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "relations": {
+        "role": {
+            "type": "belongsTo",
+            "model": "role",
+            "foreignKey": "roleId"
+        },
+        "user": {
+            "type": "belongsTo",
+            "model": "user",
+            "foreignKey": "userId"
+        }
+    }
+}

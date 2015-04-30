@@ -1,0 +1,43 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-9">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/app/main">返回首页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/app/auth/class">Class</a></li>
+                <li><a href="/app/auth/subject">Subject</a></li>
+                <li><a href="/app/auth/student">Student</a></li>
+                <li><a href="/app/auth/teacher">Teacher</a></li>
+                <li><a href="/app/auth/evaluate">Evaluate</a></li>
+            </ul>
+            <div class="dropdown nav navbar-nav navbar-right">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-expanded="true">
+                    {{currentUser.email}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="logout()">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- /.navbar-collapse -->
+
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container" ui-view=""></div>

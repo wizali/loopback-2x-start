@@ -1,0 +1,264 @@
+<!--button-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍表单控件的使用方法，同时提供了简单的表单验证功能。</p>
+<p>控件样式依赖bootstrap。</p>
+<p>控件交互依赖Angularjs。在使用<code>&lt;pho-fc&gt;</code>前，你应当对Angularjs中<code>ng-model</code>、<code>ng-options</code>指令有所了解。
+</p>
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3 4"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+    <form class="form-horizontal" rolw="form" name="test_form">
+        <pho-fc data-type="text" id="test_text" cols="12" name="输入框" placeholder="测试输入框（必填项）" required minlength="3"
+                maxlength="5" change="change(test_text)" keydown="keydown(test_text)" keypress="keypress(test_text)"
+                keyup="keyup(test_text)" model="test_text"></pho-fc>
+        <pho-fc type="number" cols="6" model="test_number" name="数字" placeholder="number（不可编辑）" value="123"
+                disabled></pho-fc>
+        <pho-fc type="url" cols="6" model="test_url" name="网络地址" placeholder="url（默认具有url格式规则验证）"
+                keypress="keypress(test_url)"></pho-fc>
+        <pho-fc type="email" cols="6" model="test_email" name="邮箱" placeholder="email（默认具有email格式规则验证）"></pho-fc>
+        <pho-fc type="password" cols="6" model="test_password" name="密码" placeholder="password（输入文本不可见）"
+                data-th="不少于6位!"></pho-fc>
+        <pho-fc type="textarea" model="test_textarea" name="文本框" placeholder="textarea"></pho-fc>
+        <pho-fc type="datepicker" cols="6" model="test_datepicker" name="日期选择框" placeholder="日期选择框"></pho-fc>
+        <pho-fc type="dropdown" model="test_dropdown" name="下拉框"
+                options="opt.key as opt.value for opt in data.select"></pho-fc>
+        <div class="form-btns">
+            <button type="button" class="btn btn-sm btn-success" ng-disabled="test_form.$invalid">Submit</button>
+        </div>
+    </form>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p><em>控件类型：</em>使用<code> &lt;pho-fc&gt; </code>标签声明一个表单控件。该指令支持的表单控件类型包括：</p>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th class="text-center" width="200px">type</th>
+        <th class="text-center">类型名称</th>
+        <th class="text-center">使用</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="text-center"><code>text</code></td>
+        <td class="text-center">输入框</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="text" data-name="输入框" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>number</code></td>
+        <td class="text-center">数字输入框</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="number" data-name="数字输入框" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>url</code></td>
+        <td class="text-center">网络地址</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="url" data-name="网络地址" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>email</code></td>
+        <td class="text-center">邮箱</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="email" data-name="邮箱" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>password</code></td>
+        <td class="text-center">密码</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="password" data-name="密码" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>textarea</code></td>
+        <td class="text-center">文本框</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="textarea" data-name="文本框" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>dropdown</code></td>
+        <td class="text-center">下拉框</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="dropdown" data-name="下拉框" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>datepicker</code></td>
+        <td class="text-center">日期选择框</td>
+        <td class="text-center"><code>&lt;pho-fc data-type="datepicker" data-name="日期选择框" &gt;&lt;/pho-fc&gt;</code></td>
+    </tr>
+    </tbody>
+    </table>
+<p>共八种类型。</p>
+<p><em>用法：</em>将表单元素的<code>data-type</code>属性设置成以上八种中的一种，即可获得相应类型的表单元素。例如：</p>
+<div class="ex-box bordered">
+    <pho-fc data-type="text" data-name="简单的输入框" data-model="demo.text"></pho-fc>
+    <pho-fc data-type="dropdown" data-name="简单的下拉框" data-model="demo.dropdown" data-options="opt.key as opt.value for opt in data.select"></pho-fc>
+    <pho-fc data-type="datepicker" data-name="简单的日期选择" data-model="demo.datepicker"></pho-fc>
+    <div class="alert alert-warning">
+        <p>输入框的值：{{demo.text}}</p>
+        <p>下拉框的值：{{demo.dropdown}}</p>
+        <p>日期框的值：{{demo.datepicker}}</p>
+    </div>
+</div>
+<pre>
+	<code>
+&lt;!--表单控件--输入框代码--&gt;
+&lt;pho-fc data-type="text"
+        data-name="简单的输入框"
+        data-model="demo.text"&gt;&lt;/pho-fc&gt;
+
+&lt;!--表单控件--下拉框代码--&gt;
+&lt;pho-fc data-type="dropdown"
+        data-name="简单的下拉框"
+        data-model="demo.dropdown"
+        data-options="opt.key as opt.value for opt in data.select"&gt;&lt;/pho-fc&gt;
+
+&lt;!--表单控件--日期选择框代码--&gt;
+&lt;pho-fc data-type="datepicker"
+        data-name="简单的日期选择"
+        data-model="demo.datepicker"&gt;&lt;/pho-fc&gt;
+    </code>
+</pre>
+<p>每个标签中，<code>name</code>属性的值将作为该控件的“名字”显示在控件前面。必须给每一个表单控件添加<code>name</code>属性。</p>
+<p><code>data-options</code>是只适用于下拉菜单的属性，该属性申明下拉菜单选项的数据源。
+    <code>data-options="opt.key as opt.value for opt in data.select"</code>代表将循环<code>$scope.data.select</code>（一个数组）,
+    利用数组中每个对象构造一个下拉选项，该对象的key属性作为选中值，value作为显示值。
+    比如<code>$scope.data.select = [{"key":"1","value":"中国"},...]</code>，那么该数组中第一个元素将被构造成<code>&lt;option value="1"&gt;中国&lt;/option&gt;</code>。
+    更多关于Angularjs中<code>ng-options</code>的写法请移步：<a href="http://each.sinaapp.com/angular/tutorial/ng-options.html" target="_blank">AngularJS入门教程：ng-options</a>
+</p>
+<p class="note">尽管在处理指令时<code>"data"</code>会被省略，即<code> "data-type" === "type" </code>，但作为HTML5中关于附加属性写法的标准，
+    建议写成<code>data-type="text"</code>而非<code>type="text"</code>。</p>
+<h3 class="page-header" id="properties">参数说明</h3>
+<p><em>属性：</em>和<code>name</code>属性类似，配置以下这些属性将赋予一个表单控件更多功能和意义：</p>
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th class="text-center" width="200px">属性名</th>
+        <th class="text-center">解释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="text-center"><code>data-type </code></td>
+        <td><p>制定该控件的类型。例如：<code>data-type="number"</code>将生成一个数字输入框。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-id </code></td>
+        <td><p>制定表单控件的id。例如：<code>data-id="username"</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-name</code></td>
+        <td><p>表单控件的名称，并现实在控件前面。例如：<code>data-name="一个简单的表单"</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-th</code></td>
+        <td><p>非日期选择框之外的所有控件都可以使用该属性，多用于输入框。<code>"data-th"</code>属性的值将放在表单控件的后面，例如：某个长度相关的输入框要求输入值得长度单位为米，则可以定义<code>data-th="(M)"</code></p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-model</code></td>
+        <td><p>和Angularjs中的<code>ng-model</code>指令效果一致，代表<code>$scope</code>上的一个属性。例如：<code>data-model="username"</code>，该表单的值将和<code>$scope.username</code>双向绑定。
+        </p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-required</code></td>
+        <td><p>必填项标记，值可以不写。例如：<code>data-required</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-disabled</code></td>
+        <td><p>禁用标记，值可以不写，设置该属性后，该表单控件将不可被编辑。例如：<code>data-disabled</code></p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-readonly</code></td>
+        <td><p>只读标记，值可以不写，设置该属性后，该表单控件将不可被编辑。例如：<code>data-readonly</code></p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-classes</code></td>
+        <td><p>设置该表单控件的样式类，因为<code>class</code>是表单控件的关键字，所以用<code>data-classes</code>代替。多个样式类用空格分割。例如：<code>data-classes="text-center
+            clearfix"</code>将设置该控件内容居中显示，同时清除上下浮动。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-minlength</code></td>
+        <td><p>最小长度验证。例如：<code>data-minlength="3"</code>将设置该表单项输入内容最小长度为3个字符,少于3个字符将验证不通过。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-maxlength</code></td>
+        <td><p>最大长度验证，同<code>data-minlength</code>。例如：<code>data-maxlength="5"</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-change</code></td>
+        <td><p>绑定onchange监听事件。和Angularjs中的<code>ng-change</code>指令效果一致，其值将对应<code>$scope</code>上的一个同名方法。例如：设置<code>data-change="textChanged()"</code>后，当该控件的值发生变化后，将触发<code>$scope.textChanged</code>方法。
+        </p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-keydown</code></td>
+        <td><p>绑定onkeydown监听事件，同<code>data-change</code>。例如：设置<code>data-keydown="textKeydown()"</code>后，当用户按下键盘上的某个按键后，将触发<code>$scope.textKeydown</code>方法。
+        </p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-keypress</code></td>
+        <td><p>绑定onkeypress监听事件，同<code>data-change</code>。例如：<code>data-keypress="textKeypress()"</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-keyup</code></td>
+        <td><p>绑定onkeyup监听事件，同<code>data-change</code>。例如：<code>data-keyup="textKeyup()"</code>。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-style</code></td>
+        <td><p>设置该控件的显示样式，但不推荐使用该属性。正确的写法应当是：将相关样式写成一个CSS的样式类，并使用<code>data-classes</code>属性添加到控件上。例如：设置<code>data-style="font-size:14px;padding:10px
+            5px 20px;"</code>后，将设置该表单控件字体大小为14像素，上方内间距为10像素，左右内间距为5像素，下方内间距为20像素。</p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-placeholder</code></td>
+        <td><p>设置当控件未写入值时的现实文字。例如：<code>data-placeholder="请输入您的用户名..."</code></p></td>
+    </tr>
+    <tr>
+        <td class="text-center"><code>data-options</code></td>
+        <td><p>
+            该属性只用在类型为<code>dropdown</code>的控件下，其作用和<code>ng-options</code>指令一致，写法也和<code>ng-options</code>指令一致。例如：<code>data-options="opt.key
+            as opt.value for opt in optList"</code></p></td>
+    </tr>
+    </tbody>
+</table>
+<p>日期选择框有更多独有的配置项，要了解更多，请移步：<a href="/catalog/datepicker">日期选择框</a></p>
+<p><em>表单名称：</em>建议给每一个表单设置<code>name</code>属性，从而获得angularjs对表单验证提供的所有支持。</p>
+<p><em>表单按钮：</em>对于
+    <button class="btn btn-xs btn-success mlr6">提交</button>
+    按钮，设置<code>ng-disabled="xxxForm.$invalid"</code>属性，可以使表单在验证未通过的情况下被禁用。如下：
+</p>
+<div class="ex-box bordered">
+    <form class="form-horizontal" rolw="form" name="validation_form">
+        <pho-fc data-type="text"
+                data-model="validation_text"
+                data-id="test_text"
+                data-cols="12"
+                data-name="验证输入框"
+                data-placeholder="验证输入框（必填、最小长度3、最大长度5）"
+                data-required
+                data-minlength="3"
+                data-maxlength="5"></pho-fc>
+        <div class="form-btns">
+            <button type="button" class="btn btn-sm btn-success" ng-disabled="validation_form.$invalid">Submit</button>
+        </div>
+    </form>
+</div>
+<pre>
+	<code>
+&lt;!--表单按钮验证代码--&gt;
+&lt;form class="form-horizontal" rolw="form" name="validation_form"&gt;
+    &lt;pho-fc data-type="text"
+    data-model="validation_text"
+    data-id="test_text"
+    data-cols="12"
+    data-name="验证输入框"
+    data-placeholder="验证输入框（必填、最小长度3、最大长度5）"
+    data-required
+    data-minlength="3"
+    data-maxlength="5"&gt;&lt;/pho-fc&gt;
+    &lt;div class="form-btns"&gt;
+        &lt;button type="button" class="btn btn-sm btn-success" ng-disabled="validation_form.$invalid">Submit&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+    </code>
+</pre>
+<div class="note">
+    <p><code>type</code>属性为<code>url、email、number</code>的控件会默认添加对该类型控件输入值格式的验证规则。</p>
+    <p>例如：当控件类型为<code>url</code>时，只允许添加以<code>http://</code>、<code>https://</code>以及<code>ftp://</code>开头的输入内容。</p>
+    <p>所有添加了验证规则的表单控件，在验证未通过以前，该控件的值不会保存在<code>ng-model</code>上，即无法使用<code>$scope.xxx</code>来获取该控件值。包括<code>type</code>属性为<code>url、email、number</code>这样提供默认格式验证的控件也是如此。
+    </p>
+    </p>
+</div>
+

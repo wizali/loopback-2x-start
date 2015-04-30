@@ -1,0 +1,42 @@
+/*docs*/
+.ex-box { position: relative; padding: 2px 10px 15px; overflow: hidden; }
+.ex-box:before{content: '示例：';color: #888;font-size: 12px;position: absolute;top: 6px;font-weight: 600;}
+div.bordered { border: 1px dotted #ddd; padding: 30px 18px 20px; border-radius: 4px 4px 0 0 / 4px 4px 0 0; }
+pre { padding: 0 10px; border-radius: 0 0 4px 4px / 4px;}
+pre code.hljs { padding: 0 8px; line-height: 1.5em;}
+p { line-height: 1.75em; margin-bottom: 20px;}
+.note{border-left: 4px solid #ce4844;
+  background-color: #eee;
+  padding-left: 6px;
+  border-radius: 2px;
+  padding: 6px;
+  font-size: 0.9em;}
+.mlr6{margin: 0 6px;}
+.alert{clear: both}
+.mt10{margin-top: 10px;}
+
+/*left side tree*/
+.sidenav, .sidenav ul { padding: 0 }
+.sidenav .sidenav-menu { display: none; }
+.sidenav li { padding-left: 10px; position: relative; list-style: none; }
+.sidenav li a { display: block; padding: 5px; color: #767676; text-decoration: none; }
+.sidenav li a:hover { color: #563d7c; }
+.sidenav .sidenav-active > a { font-weight: 700; color: #563d7c; }
+.sidenav li input[type=checkbox] { position: relative; top: 1.5px; }
+.sidenav li a:before { display: inline-block; display: inline-block; content: ""; position: absolute; top: 12px; left: -8px; width: 20px; height: 0; border-top: 1px dotted #67b2dd; z-index: 1; }
+.sidenav li:before { display: inline-block; content: ""; position: absolute; z-index: 1; top: -10px; bottom: 9px; left: -8px; border: 1px dotted #67b2dd; border-width: 0 0 0 1px; }
+.sidenav li:last-child:before { height: 21px; }
+
+/*phoebe.css*/
+.table-pagination { border-bottom: 1px solid #e0e0e0; background-color: #EFF3F8; overflow: hidden; margin-top: -20px; }
+.table-pagination .paging_bootstrap { float: right; margin-right: 20px; }
+
+/*form and  validation*/
+.form-group { margin-bottom: 6px; }
+.form-group textarea { resize: vertical; }
+.form-group .control-label { padding: 0; padding-top: 6px; width: 120px; display: inline-block; position: absolute; }
+.form-group .form-content { display: inline-block; width: calc(100% - 136px); margin-left: 122px; }
+.ng-invalid { border-color: #D88785; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); }
+.ng-invalid:focus { border-color: #D88785; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483; }
+.form-btns { clear: both; text-align: center; }
+pho-date .input-group{width: 200px;}

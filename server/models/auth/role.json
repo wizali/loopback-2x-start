@@ -1,0 +1,43 @@
+{
+    "name": "role",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string"
+        },
+        "index": {
+            "type": "number",
+            "required": true
+        },
+        "roleType": {
+            "type": "string"
+        }
+    },
+    "relations": {
+        "users": {
+            "type": "hasMany",
+            "model": "user",
+            "foreignKey": "roleId",
+            "through": "Role_User"
+        },
+        "pages": {
+            "type": "hasMany",
+            "model": "Page",
+            "foreignKey": "roleId",
+            "through": "Page_Role"
+        }
+    },
+    "acls": [
+        {
+            "accessType": "ALL",
+            "permission": "ALLOW",
+            "principalType": "ROLE",
+            "principalId": "$unauthenticated"
+        }
+    ]
+}

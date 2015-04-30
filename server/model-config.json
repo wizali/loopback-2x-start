@@ -1,0 +1,75 @@
+{
+    "_meta": {
+        "sources": [
+            "./models",
+            "./models/auth"
+        ]
+    },
+
+    "ACL":{
+        "dataSource": "mongo",
+        "public": true
+    },
+    "AccessToken": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "user": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "role": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Page": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Button": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Page_Role": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Role_User": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Button_Role": {
+        "dataSource": "mongo",
+        "public": true
+    },
+
+
+    "Class": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Class_teacher": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Evaluate": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Gender": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Student": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Subject": {
+        "dataSource": "mongo",
+        "public": true
+    },
+    "Teacher": {
+        "dataSource": "mongo",
+        "public": true
+    }
+}

@@ -1,0 +1,155 @@
+<!--table-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍分页插件的使用方法。可以对表格数据，列表数据进行分页。支持本地数据分页和异步加载数据分页两种。</p>
+<p>在使用分页插件之前，你需要对angularjs的<code>ng-repeat</code>指令有所了解。</p>
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3 4 5 6"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box">
+    
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p>分页指令已经被封装，指令名称为<code>dirPagination</code>，支持标签和属性两种引用方式，可在页面中直接使用。</p>
+<p>分页指令<code>dirPagination</code>建立在<code>ngRepeat</code>指令上，在需要分页的地方，用<code>dirPagination</code>替换<code>ngRepeat</code>，然后加上必要的过滤器（itemsPerPage、paginationId ...）和属性，最后将分页按钮控件<code>dirPaginationControls</code>引入数据HTML代码的后面。如下：</p>
+<pre>
+    <code>
+&lt;ANY
+    dir-paginate="expression | itemsPerPage: (int|expression) [: paginationId (string literal)]"
+    [current-page=""]
+    [pagination-id=""]
+    [total-items=""]&gt;
+    ...
+&lt;/ANY&gt;
+&lt;dir-pagination-controls
+    [max-size=""]
+    [direction-links=""]
+    [boundary-links=""]
+    [on-page-change=""]
+    [pagination-id=""]
+    [template-url=""]&gt;
+&lt;/dir-pagination-controls&gt;
+    </code>
+</pre>
+<p>现在介绍将分页使用在表格中：</p>
+<div class="ex-box">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>序 号</th>
+                <th>家 庭</th>
+                <th>地 址</th>
+                <th>邮 编</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="family in $model.familyDataSource | itemsPerPage: 10">
+                <td>{{$index + 1}}</td>
+                <td align="center">{{family.name}}</td>
+                <td align="center">{{family.address}}</td>
+                <td align="center">{{family.zip}}</td>
+         </tr>
+        </tbody>
+    </table>
+    <div class="table-pagination">
+        <div class="dataTables_paginate paging_bootstrap">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
+    </div>            
+</div>
+<pre>
+    <code>
+&lt;table class="table table-striped table-bordered table-hover table-condensed"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;序 号&lt;/th&gt;
+            &lt;th&gt;家 庭&lt;/th&gt;
+            &lt;th&gt;地 址&lt;/th&gt;
+            &lt;th&gt;邮 编&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr dir-paginate="family in $model.familyDataSource | itemsPerPage: 10"&gt;
+            &lt;td&gt;{{$index + 1}}&lt;/td&gt;
+            &lt;td align="center"&gt;{{family.name}}&lt;/td&gt;
+            &lt;td align="center"&gt;{{family.address}}&lt;/td&gt;
+            &lt;td align="center"&gt;{{family.zip}}&lt;/td&gt;
+     &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="row"&gt;
+    &lt;div class="col-xs-6"&gt;
+        &lt;div class="dataTables_paginate paging_bootstrap"&gt;
+            &lt;dir-pagination-controls&gt;&lt;/dir-pagination-controls&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;  
+    </code>
+</pre>
+<h3 class="page-header" id="usage">参数说明</h3>
+
+<h3 class="page-header" id="usage">API 接口</h3>
+
+<h3 class="page-header" id="usage">相关信息</h3>
+
+
+
+ <h3>Introduction</h3>
+ <p>
+     This plugin can be used for table,list or other data collection
+ </p>
+ <h3>Document index</h3>
+ <ul class="container list-unstyled">
+     <li>
+         <a href="#demo">demo</a>
+     </li>
+     <li>
+         <a href="#code">code</a>
+     </li>
+ </ul>
+ <h3>Demo</h3>
+ <div id="demo">
+     Family list:
+     <button ng-click="$resoure.familyAdd();familyFormVisible = true">添 加</button>
+     <button ng-click="$resoure.familyBatchRemove()">批量删除</button>
+     <table class="table table-condensed table-striped table-bordered table-hover">
+         <tr>
+             <th>序 号</th>
+             <th>家 庭</th>
+             <th>地 址</th>
+             <th>邮 编</th>
+         </tr>
+         <tr dir-paginate="family in $model.familyDataSource | itemsPerPage: itemPerPage">
+             <th class="center">
+                 <input type="checkbox" ng-click="$resoure.familyMarkSelected(family)"/> 
+             </th>
+             <th>{{$index + 1}}</th>
+             <td align="center">{{family.name}}</td>
+             <td align="center">{{family.address}}</td>
+             <td align="center">{{family.zip}}</td>
+         </tr>
+     </table>
+     <div class="row">
+         <div class="col-xs-6">
+             <pho:pagin-ctrl data-model="itemPerPage"></pho:pagin-ctrl>
+         </div>
+         <div class="col-xs-6">
+             <div class="dataTables_paginate paging_bootstrap">
+                 <dir-pagination-controls></dir-pagination-controls>
+             </div>
+         </div>
+     </div>
+ </div>
+ <div style="width: 500px;float:left;margin-left: 20px;" ng-show="familyFormVisible">
+     家 庭：
+     <input type="text" ng-model="$model.family.name"/> 
+     <br/> 
+     地 址：
+     <input type="text" ng-model="$model.family.address"/> 
+     <br/> 
+     邮 编：
+     <input type="text" ng-model="$model.family.zip"/> 
+     <br/> 
+     <button ng-click="$resoure.familySave()">保 存</button>
+     <button ng-click="$resoure.familyReset()">清 空</button>
+ </div>

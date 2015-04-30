@@ -1,0 +1,95 @@
+<!--button-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍按钮的使用</p>
+
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+	<button type="button" class="btn btn-default">默认样式</button>
+	<button type="button" class="btn btn-primary">首选项</button>
+	<button type="button" class="btn btn-success">成功</button>
+	<button type="button" class="btn btn-info">一般信息</button>
+	<button type="button" class="btn btn-warning">警告</button>
+	<button type="button" class="btn btn-danger">危险</button>
+	<button type="button" class="btn btn-link">链接</button>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p><em>用法：</em><code>&lt;a&gt;</code>、<code>&lt;button&gt;</code>、<code>&lt;input&gt;</code>都可以设置成按钮样式并使用，为了统一，我们只使用<code>&lt;button&gt;</code>标签。</p>
+<p><em>颜色：</em>各种颜色使用<code>.primary</code>、<code>.success</code>、<code>.info</code>、<code>.warning</code>、<code>.danger</code>、<code>.link</code>样式来控制。</p>
+<div class="ex-box bordered">
+	<button type="button" class="btn btn-default">默认样式</button>
+	<button type="button" class="btn btn-primary">首选项</button>
+	<button type="button" class="btn btn-success">成功</button>
+	<button type="button" class="btn btn-info">一般信息</button>
+	<button type="button" class="btn btn-warning">警告</button>
+	<button type="button" class="btn btn-danger">危险</button>
+	<button type="button" class="btn btn-link">链接</button>
+</div>
+<pre>
+	<code>
+&lt;!-- 按钮颜色示例代码 --&gt;
+&lt;button type="button" class="btn btn-default"&gt;默认样式&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-primary"&gt;首选项&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-success"&gt;成功&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-info"&gt;一般信息&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-warning"&gt;警告&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-danger"&gt;危险&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-link"&gt;链接&lt;/button&gt;
+	</code>
+</pre>
+
+<p><em>尺寸：</em>按钮的尺寸可以使用<code>.btn-lg</code>、<code>.btn-sm</code>、<code>.btn-xs</code>样式来控制。如果不加尺寸控制，则代表使用默认尺寸。</p>
+<div class="ex-box bordered">
+	<button type="button" class="btn btn-default btn-lg">btn-lg</button>
+	<button type="button" class="btn btn-default">default</button>
+	<button type="button" class="btn btn-default btn-sm">btn-sm</button>
+	<button type="button" class="btn btn-default btn-xs">btn-xs</button>
+</div>
+<pre>
+	<code>
+&lt;!-- 按钮尺寸示例代码 --&gt;
+&lt;button type="button" class="btn btn-default btn-lg"&gt;btn-lg&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-default"&gt;default&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-default btn-sm"&gt;btn-sm&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-default btn-xs"&gt;btn-xs&lt;/button&gt;
+	</code>
+</pre>
+
+<p><em>激活状态：</em>使用<code>.active</code>样式设定按钮的激活状态，让按钮看起来像被按下去一样。</p>
+<div class="ex-box bordered">
+	<button type="button" class="btn btn-danger">default</button>
+	<button type="button" class="btn btn-danger active">active</button>
+</div>
+<pre>
+	<code>
+&lt;!-- 按钮激活状态示例代码 --&gt;
+&lt;button type="button" class="btn btn-danger"&gt;unactive&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-danger active"&gt;active&lt;/button&gt;
+	</code>
+</pre>
+
+<p><em>禁用状态：</em>给按钮添加<code>disabled="disabled"</code>属性，可以禁用按钮，使按钮不可被点击。</p>
+<div class="ex-box bordered">
+	<button type="button" class="btn btn-danger">default</button>
+	<button type="button" class="btn btn-danger" disabled="disabled">disabled</button>
+</div>
+<pre>
+	<code>
+&lt;!-- 按钮禁用状态示例代码 --&gt;
+&lt;button type="button" class="btn btn-danger"&gt;default&lt;/button&gt;
+
+&lt;button type="button" class="btn btn-danger" disabled="disabled"&gt;disabled&lt;/button&gt;
+	</code>
+</pre>

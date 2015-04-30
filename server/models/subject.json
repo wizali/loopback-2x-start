@@ -1,0 +1,16 @@
+{
+    "name": "Subject",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "strict":true,
+    "properties": {
+        "key": {
+            "type": "string",
+            "required": true
+        },
+        "value": {
+            "type": "string",
+            "required": true
+        }
+    }
+}

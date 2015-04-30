@@ -1,0 +1,17 @@
+{
+    "name": "Page_Role",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "relations": {
+        "page": {
+            "type": "belongsTo",
+            "model": "Page",
+            "foreignKey": "pageId"
+        },
+        "role": {
+            "type": "belongsTo",
+            "model": "role",
+            "foreignKey": "roleId"
+        }
+    }
+}

@@ -1,0 +1,140 @@
+<a href="/main">跳转main</a> |
+{{title}} |
+{{currentDate}} |
+[日期格式化]： {{1234567890 | dateFormat}} |
+[容量格式化]：{{2154536464 | measureFormat: 2 : 'hz'}} |
+[容量格式化]：{{40 | measureFormat: 1 : 'byte'}} |
+<p>
+    <button ng-click="showForm()">test</button>
+    <div id="autoForm">
+        <!--<level:one linkname="jxsderver"></level:one>-->
+    </div>
+</p>
+
+
+
+<p>
+数据字典案例<br/>
+<select ng-model="selectedArchivetype"
+        ng-options="opt.key as opt.value for opt in dicts.archivetype.dictoptions">
+    <option value="">-- 请选择 --</option>
+</select>
+选择的是： {{selectedArchivetype | dictFormat: 'archivetype'}}
+
+<br/>
+<select ng-model="selectedNetworkDeviceType" ng-init="selectedNetworkDeviceType='4'"
+        ng-options="opt.key as opt.value for opt in dicts.networkDeviceType.dictoptions">
+    <option value="">-- 请选择 --</option>
+</select>
+选择的是： {{selectedNetworkDeviceType | dictFormat: 'networkDeviceType' : 'id'}}
+</p>
+<br/>
+
+<button ng-click="createModels()">创建模型</button><br/>
+
+<button ng-click="phoebeFind()">Phoebe find item.</button>
+<button ng-click="phoebeAdd()">Phoebe add item.</button>
+<button ng-click="phoebeMidify()">Phoebe midify item.</button>
+<button ng-click="phoebeRemove()">Phoebe remove item.</button>
+
+<hr/>
+<div style="clear:both;">
+    <div style="width: 800px;float:left;">Family list:
+        <button ng-click="$resoure.familyAdd();familyFormVisible = true">添 加</button>
+        <button ng-click="$resoure.familyBatchRemove()">批量删除</button>
+        <table width="100%" border="1">
+            <tr>
+                <th>多 选</th>
+                <th>序 号</th>
+                <th>家 庭</th>
+                <th>地 址</th>
+                <th>邮 编</th>
+                <th>成 员</th>
+                <th>汽 车</th>
+                <th>操 作</th>
+            </tr>
+            <tr ng-repeat="family in $model.familyDataSource" height="28">
+                <th align="center"><input type="checkbox" ng-click="$resoure.familyMarkSelected(family)"/></th>
+                <th>{{$index + 1}}</th>
+                <td align="center">{{family.name}}</td>
+                <td align="center">{{family.address}}</td>
+                <td align="center">{{family.zip}}</td>
+                <td align="center">
+                    <span ng-repeat="member in family.members">{{member.name}}, </span>
+                </td>
+                <td align="center">
+                    <span ng-repeat="car in family.cars">{{car.name}}, </span>
+                </td>
+                <td>
+                    <button ng-click="$resoure.familyModify($index)">修 改</button>
+                    <button ng-click="$resoure.familyRemove($index)">删 除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="width: 500px;float:left;margin-left: 20px;" ng-show="familyFormVisible">
+        家 庭： <input type="text" ng-model="$model.family.name"/> <br/>
+        地 址： <input type="text" ng-model="$model.family.address"/> <br/>
+        邮 编： <input type="text" ng-model="$model.family.zip"/> <br/>
+        <!--汽 车： <select ng-model="a" ng-options="opt.id as opt.model for opt in $dataProvider.carsOptions">
+                   <option value="">-- 请选择 --</option>
+               </select><br/>
+        人 员： <select ng-model="b" ng-options="opt.id as opt.name for opt in $dataProvider.memberOptions">
+                    <option value="">-- 请选择 --</option>
+                </select><br/>-->
+        <button ng-click="$resoure.familySave()">保 存</button>
+        <button ng-click="$resoure.familyReset()">清 空</button>
+    </div>
+</div>
+
+
+
+<hr style="clear:both;margin:10px 0px"/>
+<div style="clear:both;">
+    <div style="width: 800px;float:left;">Member list:
+        <button ng-click="memberFormVisible = true">添 加</button>
+        <button ng-click="$resoure.memberBatchRemove()">批量删除</button>
+        <table width="100%" border="1">
+            <tr>
+                <th>多 选</th>
+                <th>序 号</th>
+                <th>姓 名</th>
+                <th>年 龄</th>
+                <th>性 别</th>
+                <th>家 庭</th>
+                <th>操 作</th>
+            </tr>
+            <tr ng-repeat="member in $model.memberDataSource" height="28">
+                <th align="center"><input type="checkbox" ng-click="$resoure.memberMarkSelected(member)"/></th>
+                <th>{{$index + 1}}</th>
+                <td align="center">{{member.name}}</td>
+                <td align="center">{{member.age}}</td>
+                <td align="center">{{member.sex}}</td>
+                <td align="center">{{member.family.name}}</td>
+                <td>
+                    <button ng-click="$resoure.memberModify($index)">修 改</button>
+                    <button ng-click="$resoure.memberRemove($index)">删 除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="width: 500px;float:left;margin-left: 20px;" ng-show="memberFormVisible">
+        姓 名： <input type="text" ng-model="$model.member.name"/> <br/>
+        年 龄： <input type="text" ng-model="$model.member.age"/> <br/>
+        性 别： <input type="text" ng-model="$model.member.sex"/> <br/>
+        家 庭： <select ng-model="$model.member.familyid"
+                       ng-options="opt.id as opt.name for opt in $dataProvider.familyOptions"
+                       ng-change="$resoure.setSelected($model.member.familyid, 'familyOptions', 'family');getSelectedItem();$resoure.carsOptionsTrigger($model.member.familyid)">
+                    <option value="">-- 请选择 --</option>
+                </select><br/>
+        人 员：  <select ng-model="s"
+                        ng-options="opt.id as opt.name for opt in $dataProvider.carsOptions">
+                    <option value="">-- 请选择 --</option>
+                </select><br/>
+        <button ng-click="$resoure.memberSave()">保 存</button>
+        <button ng-click="$resoure.memberReset()">清 空</button>
+    </div>
+
+</div>

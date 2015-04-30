@@ -1,0 +1,42 @@
+<!--table-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍提示框的使用方法。</p>
+<p>你可以在任何是有使用<code>$.tips(info,type)</code>向用户提示一些内容，比如在向服务器端请求一些表格数据并返回后，在回调函数中使用提示框的形式告知用户。</p>
+
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+    <button type="button" class="btn btn-primary btn-lg" ng-click="tip()">提示信息</button>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p><code>$.tips(information,type)</code>方法用于弹出提示框。</p>
+<p>第一个参数<code>information</code>是提示框的内容。</p>
+<p>第二个参数<code>type</code>是弹出框的类型，<code>"success"</code>将弹出绿色提示框，<code>"error"</code>将弹出红色提示框。</p>
+<p>如果省略第二个参数，则默认弹出红色提示框。</p>
+<div class="ex-box bordered">
+    <button type="button" class="btn btn-success btn-sm" ng-click="successTip()">成功提示框</button>
+    <button type="button" class="btn btn-danger btn-sm" ng-click="failureTip()">失败提示框</button>
+</div>
+<pre>
+	<code>
+&lt;!--提示框示例代码--&gt;
+&lt;button type="button" class="btn btn-success btn-sm" ng-click="successTip()"&gt;成功提示框&lt;/button&gt;
+&lt;button type="button" class="btn btn-danger btn-sm" ng-click="failureTip()"&gt;失败提示框&lt;/button&gt;
+
+&lt;script type="text/javascript"&gt;
+    $scope.successTip = function (){
+        $.tips('成功提示框是绿色的。弹出后将在3妙后消失！','success');
+    };
+
+    $scope.failureTip = function (){
+        $.tips('失败提示框是红色的。弹出后将在3妙后消失！','error');
+    }
+&lt;/script&gt;
+    </code>
+</pre>
+<p class="note">
+    提示框的样式是置顶的（始终现实在最外面）。<br />
+    页面中同一时间只能显示一个提示框。
+</p>

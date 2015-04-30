@@ -1,0 +1,38 @@
+{
+    "name": "Page",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "url": {
+            "type": "string"
+        },
+        "index": {
+            "type": "number",
+            "rquired": true
+        },
+        "description": {
+            "type": "string"
+        },
+        "parentId": {
+            "type": "string",
+            "required": true
+        }
+    },
+    "relations": {
+        "roles": {
+            "type": "hasMany",
+            "through": "Page_Role",
+            "foreignKey": "pageId",
+            "model": "Page"
+        },
+        "buttons": {
+            "type": "hasMany",
+            "model": "Button",
+            "foreignKey": "pageId"
+        }
+    }
+}

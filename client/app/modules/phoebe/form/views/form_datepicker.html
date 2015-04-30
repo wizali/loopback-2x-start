@@ -1,0 +1,188 @@
+<!--button-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍日期选择框的使用方法。</p>
+<p>日期选择框是被<code>&lt;pho-fc&gt;</code>指令中支持的。同时还有自己的书写方式。</p>
+
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3 4"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+	<form class="form-horizontal">
+        <pho-fc data-type="datepicker" data-model="demo.simple" data-name="简单日期选择框" data-cols="6" required></pho-fc>
+        <pho-fc data-type="datepicker" data-model="demo.beforetoday" data-name="今天以前" data-cols="6" data-role="beforetoday"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="demo.start" data-name="开始时间" data-cols="6" data-id="demo_start" data-role="start" data-end="demo_end"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="demo.end" data-name="结束时间" data-cols="6" data-id="demo_end" data-role="end" data-start="demo_start" ></pho-fc>
+        <pho-fc data-type="datepicker" 
+                data-model="demo.end" 
+                data-name="结束时间" 
+                data-cols="6" 
+                data-format="YYYY-MM-DD" 
+                ></pho-fc>
+	</form>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p>日期选择框自有的指令是<code>&lt;pho-date&gt;</code>。</p>
+<div class="ex-box bordered">
+<em>简单日期选择框：</em><pho-date data-model="pro.simple" data-id="pro.simple" data-style="display:inline-block;width:200px;" data-required></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--原生日期选择框指令用法--&gt;
+&lt;pho-date data-model="pro.simple"
+        data-id="pro.simple"
+        data-style="display:inline-block;width:200px;"
+        data-required&gt;&lt;/pho-date&gt;
+	</code>
+</pre>
+<p>如果在表单中使用日期选择框，则可以使用<code>&lt;pho-fc&gt;</code>指令。此时日期选择框的特有配置属性写法不变。</p>
+<div class="ex-box bordered">
+    <pho-fc data-type="datepicker" data-model="demo.simple" data-name="简单日期选择框" data-cols="6"></pho-fc>
+</div>
+<pre>
+	<code>
+&lt;!--使用表单控件方式创建日期选择框--&gt;
+&lt;pho-fc data-type="datepicker"
+    data-model="demo.simple"
+    data-name="日期选择框"
+    data-cols="6"
+    data-change="change(demo.simple)"&gt;&lt;/pho-fc&gt;
+    </code>
+</pre>
+
+<h3 class="page-header" id="properties">参数说明</h3>
+<h4><code>date-role</code>：</h4>
+<p>该配置项有三个可选值：<code>beforetoday</code>、<code>start</code>、<code>end</code></p>
+<p>当设置<code>date-role="beforetoday"</code>时，用户只能选择今天之前的日期。</p>
+<div class="ex-box bordered">
+    <pho-date data-model="pro.simple" data-id="pro.simple" data-style="display:inline-block;width:200px;" data-role="beforetoday"></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--data-role="beforetoday"--&gt;
+&lt;pho-date data-model="pro.simple" data-id="pro.simple" data-style="display:inline-block;width:200px;" data-role="beforetoday"&gt;&lt;/pho-date&gt;
+    </code>
+</pre>
+<p><code>date-role="start"</code>和<code>date-role="end"</code>必须成对出现。并且必须配合<code>date-start</code>和<code>date-end</code>属性使用。</p>
+<p>例如一个人的出生日期和死亡日期，出生日期一定小于死亡日期，所以给出生日期设置<code>date-role="start"</code>，同时给死亡日期设置<code>date-role="end"</code>，
+    系统就会根据用户的选择自动进行校验。</p>
+<div class="ex-box bordered">
+    <em>出生日期：</em><pho-date data-model="pro.birthday" data-id="pro_birthday" data-style="display:inline-block;width:200px;" data-role="start" data-end="pro_endday"></pho-date>
+    <em>死亡日期：</em><pho-date data-model="pro.endday" data-id="pro_endday" data-style="display:inline-block;width:200px;" data-role="end" data-start="pro_birthday"></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--data-role="start"和data-role="end"--&gt;
+&lt;pho-date data-model="pro.birthday"
+        data-id="pro_birthday"
+        data-style="display:inline-block;width:200px;"
+        data-role="start"
+        data-end="pro_endday"&gt;&lt;/pho-date&gt;
+&lt;pho-date data-model="pro.endday"
+        data-id="pro_endday"
+        data-style="display:inline-block;width:200px;"
+        data-role="end"
+        data-start="pro_birthday"&gt;&lt;/pho-date&gt;
+    </code>
+</pre>
+<p>在上面，给出生日期设置<code>date-role="start"</code>，<code>date-end="pro_endday"</code>，其中<code>"pro_endday"</code>即死亡日期选择框的<code>"data-id"</code>值。
+    给死亡日期设置<code>date-role="end"</code>，<code>date-start="pro_birthday"</code>，其中<code>"pro_birthday"</code>即出生日期择框的<code>"data-id"</code>值。</p>
+<p>可以看出<code>date-start</code>和<code>date-end</code>这两个属性实际上是指向了要和自身进行时间比较的日期选择框的id。当对应的两个选择框有一个日期发生了改变，会通过该属性找到对方，并获取其值，从而进行比较。</p>
+<h4><code>date-from</code>：</h4>
+<p>该属性将设置日期选择框起始选择范围。若指定年份，设置值为 4 位数的数字。若指定某一天，设置值为字符串或时间戳，该值能被<code>new Date(value)</code>处理。</p>
+<div class="ex-box bordered">
+    <em>日期>2015-04-10：</em><pho-date data-model="pro.form" data-style="display:inline-block;width:200px;" data-form="2015-04-10"></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--data-form="2015-04-10"--&gt;
+&lt;pho-date data-model="pro.form"
+        data-style="display:inline-block;width:200px;"
+        data-form="2015-04-10"&gt;&lt;/pho-date&gt;
+    </code>
+</pre>
+<h4><code>date-end</code>：</h4>
+<p>该属性将设置日期选择框截止选择范围。若指定年份，设置值为 4 位数的数字。若指定某一天，设置值为字符串或时间戳，该值能被<code>new Date(value)</code>处理。</p>
+<div class="ex-box bordered">
+    <em>日期<2015-04-10：</em><pho-date data-model="pro.end" data-style="display:inline-block;width:200px;" data-to="2015-04-10"></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--data-form="2015-04-10"--&gt;
+&lt;pho-date data-model="pro.form"
+data-style="display:inline-block;width:200px;"
+data-to="2015-04-10"&gt;&lt;/pho-date&gt;
+    </code>
+</pre>
+<p><code>data-form</code>和<code>data-to</code>可同时使用。例如将选择范围设定在"2015年4月10日"到"2015年4月20日"之间：</p>
+<div class="ex-box bordered">
+    <em>2015-04-10&lt;日期<2015-04-20：</em><pho-date data-model="pro.form_to" data-style="display:inline-block;width:200px;" data-form="2015-04-10" data-to="2015-04-20"></pho-date>
+</div>
+<pre>
+	<code>
+&lt;!--data-form="2015-04-10"--&gt;
+&lt;pho-date data-model="pro.form_to"
+data-style="display:inline-block;width:200px;"
+data-form="2015-04-10"
+data-to="2015-04-20"&gt;&lt;/pho-date&gt;
+    </code>
+</pre>
+<h4><code>date-format</code>：</h4>
+<p>制定日期格式：<br />
+<code>'YYYY'</code>: 完整的4位数的年份。<br />
+<code>'YY'</code>: 末尾2位数字的年份。<br />
+<code>'MM'</code>: 2位数字的月份（01-12）。<br />
+<code>'M'</code>: 月份（1-12）。<br />
+<code>'DD'</code>: 2位数字的月份中的第几天（01-31）。<br />
+<code>'D'</code>: 月份中的第几天（1-31）。<br />
+<code>'TIME'</code>: 时间戳。<br />
+<code>'STRING'</code>: 日期的字符串，例：Wed Jul 28 1993。<br />
+<code>'yyyy-mm-dd hh</code>:精确到小时的时间,例：2012-06-13 13。<br />
+<code>'yyyy-mm-dd hh:ii</code>:精确到分钟的时间,例：2012-06-13 13:50。
+<code>'yyyy-mm-dd hh:ii:ss</code>:精确到分钟的时间,例：2015-04-16 11:35:30。
+默认是<code>'YYYY-MM-DD'</code></p>
+<div class="ex-box bordered">
+    <form class="form-horizontal">
+        <pho-fc data-type="datepicker" data-model="pro.YYYY_MM_DD" data-name="YYYY-MM-DD" data-format="YYYY-MM-DD" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.YYYY" data-name="YYYY" data-format="YYYY" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.YY" data-name="YY" data-format="YY" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.MM" data-name="MM" data-format="MM" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.M" data-name="M" data-format="M" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.DD" data-name="DD" data-format="DD" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.D" data-name="D" data-format="D" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.TIME" data-name="TIME" data-format="TIME" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.STRING" data-name="STRING" data-format="STRING" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.hh" data-name="hh" data-format="yyyy-mm-dd hh" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.hhii" data-name="hhii" data-format="yyyy-mm-dd hh:ii" data-cols="6"></pho-fc>
+        <pho-fc data-type="datepicker" data-model="pro.hhiiss" data-name="hhiiss" data-format="yyyy-mm-dd hh:ii:ss" data-cols="6"></pho-fc>
+    </form>
+</div>
+<pre>
+	<code>
+&lt;!--data-format--&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.YYYY_MM_DD" data-name="YYYY-MM-DD" data-format="YYYY-MM-DD"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.YYYY" data-name="YYYY" data-format="YYYY"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.YY" data-name="YY" data-format="YY"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.MM" data-name="MM" data-format="MM"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.M" data-name="M" data-format="M"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.DD" data-name="DD" data-format="DD"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.D" data-name="D" data-format="D"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.TIME" data-name="TIME" data-format="TIME"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" data-model="pro.STRING" data-name="STRING" data-format="STRING"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" 
+    data-model="pro.hh" 
+    data-name="hh" 
+    data-format="yyyy-mm-dd hh" 
+    data-cols="6"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" 
+    data-model="pro.hhii" 
+    data-name="hhii" 
+    data-format="yyyy-mm-dd hh:ii" 
+    data-cols="6"&gt;&lt;/pho-fc&gt;
+&lt;pho-fc data-type="datepicker" 
+    data-model="pro.hhiiss" 
+    data-name="hhiiss" 
+    data-format="yyyy-mm-dd hh:ii:ss" 
+    data-cols="6"&gt;&lt;/pho-fc&gt;
+    </code>
+</pre>

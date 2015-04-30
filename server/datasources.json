@@ -1,0 +1,15 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongo": {
+    "name": "mongo",
+    "connector": "mongodb",
+    "host": "localhost",
+    "post": 27017,
+    "database": "loopback2",
+    "username": "",
+    "password": ""
+  }
+}

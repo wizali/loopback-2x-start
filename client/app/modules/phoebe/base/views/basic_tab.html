@@ -1,0 +1,166 @@
+<!--button-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍TAB页的使用</p>
+
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3 5"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#home"  data-toggle="tab">通话记录</a></li>
+		<li><a href="#profile"  data-toggle="tab">电话本</a></li>
+		<li><a href="#messages" data-toggle="tab">短信息</a></li>
+		<li><a href="#settings" data-toggle="tab">微信</a></li>
+	</ul>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="home"><p>这里记载了您10天之内的所有呼入以及呼出电话，不管打没打通，接没接到，不管打给大姨妈，还是打给二姐夫...</p></div>
+		<div class="tab-pane fade" id="profile"><p>想找谁？都在这里！</p></div>
+		<div class="tab-pane fade" id="messages"><p>划开手机，发现电话、信息、微信、QQ都有新消息，你先看哪个？选信息是吧？你是个顾家的人</p></div>
+		<div class="tab-pane fade" id="settings"><p>选微信？脑残！</p></div>
+	</div>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p><em>TAB页头：</em>给<code>&lt;ul&gt;</code>标签添加<code>class="nav nav-tabs"</code>，将其中每个<code>li > a</code>的<code>href</code>属性设置为要显示代码块的id（例如：<code>href="#home"</code>），并为该<code>a</code>标签设置<code>data-toggle="tab"</code>属性。</p>
+<p><em>TAB内容：</em>放在一个<code>class="tab-content"</code>的<code>&lt;div&gt;</code>标签中，每一个TAB内容块用<code>class="tab-pane fade"</code>的<code>&lt;div&gt;</code>标签包起来，并将该<code>&lt;div&gt;</code>的<code>id</code>属性设置成其所对应的TAB页的id（例如：<code>id="#home"</code>）即可。</p>
+<p>设置页面初始化要显示的tab，可以在TAB页头的<code>&lt;ul&gt;</code>中给相应的<code>&lt;li&gt;</code>添加<code>.active</code>样式，在TAB内容中将相应的<code>&lt;div&gt;</code>添加<code> .in .active</code>样式。</p>
+<div class="ex-box bordered">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#home1"  data-toggle="tab">通话记录</a></li>
+		<li><a href="#profile1"  data-toggle="tab">电话本</a></li>
+		<li><a href="#messages1" data-toggle="tab">短信息</a></li>
+		<li><a href="#settings1" data-toggle="tab">微信</a></li>
+	</ul>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="home1"><p>这里可以放表格、列表、文字等任何内容...<br/>
+            这里可以放表格、列表、文字等任何内容...<br/>
+            这里可以放表格、列表、文字等任何内容...<br/></p>
+
+		</div>
+		<div class="tab-pane fade" id="profile1"><p>这里可以放表格、列表、文字等任何内容</p></div>
+		<div class="tab-pane fade" id="messages1"><p>这里可以放表格、列表、文字等任何内容</p></div>
+		<div class="tab-pane fade" id="settings1"><p>这里可以放表格、列表、文字等任何内容</p></div>
+	</div>
+</div>
+<pre>
+	<code>
+&lt;!--TAB页头示例代码--&gt;
+&lt;ul class="nav nav-tabs" id="myTab"&gt;
+	&lt;li class="active"&gt;&lt;a href="#home"  data-toggle="tab"&gt;通话记录&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#profile"  data-toggle="tab"&gt;电话本&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#messages" data-toggle="tab"&gt;短信息&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#settings" data-toggle="tab"&gt;微信&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--TAB页内容示例代码--&gt;
+&lt;div class="tab-content"&gt;
+	&lt;div class="tab-pane fade in active" id="home"&gt;通话记录&lt;/div&gt;
+	&lt;div class="tab-pane fade" id="profile"&gt;电话本&lt;/div&gt;
+	&lt;div class="tab-pane fade" id="messages"&gt;短信息&lt;/div&gt;
+	&lt;div class="tab-pane fade" id="settings"&gt;微信&lt;/div&gt;
+&lt;/div&gt;
+	</code>
+</pre>
+
+<h3 class="page-header" id="api">API 接口</h3>
+<h4>1、设置初始化TAB</h4>
+<p><em>设置初始化TAB</em>除了使用上面介绍的给<abbr title="HyperText Markup Language" class="initialism">HTML</abbr>标签加<code>class</code>样式以外，还可以使用JavaScript代码实现。从而可以操作整个TAB控件，比如<a href="#addlistener">添加监听事件</a>，或者其他的事情。方法是给TAB页头设置<code>id</code>属性（例如：<code>&lt;ul class="nav nav-tabs" id="myTab"&gt;</code>），然后使用js代码初始化TAB控件。如下：</p>
+<pre>
+	<code>
+&lt;ul class="nav nav-tabs" id="myTab"&gt;
+	&lt;li&gt;&lt;a href="#home"  data-toggle="tab"&gt;通话记录&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#profile"  data-toggle="tab"&gt;电话本&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#messages" data-toggle="tab"&gt;短信息&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#settings" data-toggle="tab"&gt;微信&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+	$(function () {
+	  //显示id="settings"的TAB
+	    $('#myTab a:last').tab('show');
+	})
+&lt;/script&gt;
+	</code>
+</pre>
+<h4 id="addlistener"> 2、监听TAB切换动作</h4>
+<p><em>监听TAB切换动作</em>，类似于像<code>&lt;button&gt;</code>添加<code>onClick</code>事件。TAB控件提供两个鉴定属性，如下所示：</p>
+<ol>
+    <li><code>hide.bs.tab</code> (在当前TAB激活后触发)</li>
+    <li><code>show.bs.tab</code> (某个TAB即将激活前触发)</li>
+ </ol>
+ <p> 用任何一种方式监听，通过回调函数中的<code>event</code>参数获得当前TAB的标签对象和切换前TAB的标签对象。</p>
+ <pre>
+	<code>
+$('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
+	e.target //  被激活的TAB
+	e.relatedTarget //  前一个激活的TAB
+})
+	</code>
+</pre>
+
+<p>现在使用javascr方式初始化下面的TAB控件，添加一个监听：</p>
+<div class="ex-box bordered">
+	<!--向TAB控件添加切换的监听-->
+	<ul class="nav nav-tabs" id="tab_listen">
+		<li class="active"><a href="#tab1" data-toggle="tab">天秤座</a></li>
+		<li><a href="#tab2" data-toggle="tab">金牛座</a></li>
+		<li><a href="#tab3"  data-toggle="tab">处女座</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab1"><p>天秤座的男性亲切随和，和他交往，人们总是忽略他是否长相帅气，而被他的冷静、举止大方和谈吐高雅所吸引。更何况，他还是个恋爱专家，所以会很容易找到爱人。恋爱之初，他会让情人觉得，爱情真是太美好了，但是随着感情的加深，想要有长足的发展，双方还是要付出很多努力的。</p>
+		<p>他很愿意和人接触，喜欢向人们展示自己的社交魅力，很少有人能抗拒他的优雅气质。他们不能过孤独的生活，很重视朋友间的交往，而爱情、婚姻对他们是非常重要的。他们需要爱情，渴望倾诉衷肠和赢得别人的好感。他们要在自己建立的关系中找到幸福感。</p>
+		<p>天秤座的他是恋爱圣手。自然能博得很多女孩子的喜欢，面对诱惑的几率当然也会比较高。但天秤座的男性不喜欢生活中出现不和谐因子，想要皆大欢喜。他很害怕伤害别人或是因为自己的选择让别人不高兴，让他给出个明确的答案真的很难。</p>
+		<p>天秤座的男性对和谐和美有很高的要求，不喜欢丑恶与粗暴，希望自己生活在一片欢声笑语、幸福美满之中。为此他总会在意别人的眼光，不愿与人相争，一心想使别人满意，从而使自己没主见、没原则的弱点凸显出来。天秤座的男性不会把不满说出来，其实他自己也不清楚破坏他内心平衡的到底是什么，所以经常是完全没有任何征兆地就变心了。他们搞不清楚爱人那边是什么状况，同样搞不清自己的状况，总是纵然女人撒娇、闹脾气，等女人习惯于被他纵然，他又会说你太骄纵了。</p></div>
+		<div class="tab-pane fade" id="tab2"><p>金牛座的人性格温厚，待人真诚，相对于充满挑战的冒险，更适合选择阳光大道安稳度过一生。不喜对普通事物进行深入的思考，通常会随波逐流，与周围融合在一起，所以不会树敌。只要能保证友善的环境，就可以与周围的人们和睦相处，安定地生活。</p></div>
+		<div class="tab-pane fade" id="tab3"><p>处女座的男人很细心，做事认真，凡事兢兢业业，一丝不苟；但细心的男人太过要求完美，对人太少宽容，过多挑剔，处女座的男人不免婆婆妈妈。</p>
+		<p>处女座男人在女人面前，大都给人以有思想、有智慧的印象；在男人面前，往往温文儒雅。</p>
+		<p>与处女座男人共事，轻松愉快，但与细心的处女座男人生活，则紧张烦恼。</p>
+		<p>处女座的男人会打扮、会生活，他知道在什么场合应着什么样的服装更能表现自己，假如他需要表现的话。细心的男人在工作上认真，在生活上也从不马虎，喜欢细心有古典美的异性类型。</p>
+		<p>处女座男生，一个词形容就是龟毛。他们总是能够比女人还要爱干净，衣服比女人还要整齐。</p>
+		<p>处女座男生的爱情有些坎坷多磨难，因为处女座总是会给女性带来压迫感。另外就是处女座的家庭观念比较淡薄，家人对于处女座来说只是比较熟悉的。</p>
+		</div>
+	</div>
+</div>
+<div id="console" class="alert alert-warning hide"></div>
+<div style="clear:both;"></div>
+<script type="text/javascript">
+	$(function (){
+		var $console = $("#console");
+
+		$("#tab_listen").tab().find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			var $target = $(e.target),
+				$relatedTarget = $(e.relatedTarget);
+
+				$console.removeClass('hide').append($('<p>您激活了<strong>'+$target.html()+'</strong>，上一个被激活的是<strong>'+$relatedTarget.html()+'</strong>.......</p>'));
+		});
+	})
+</script>
+<pre>
+	<code>
+&lt;div class="ex-box bordered"&gt;
+	&lt;!--向TAB控件添加切换的监听--&gt;
+	&lt;ul class="nav nav-tabs" id="tab_listen"&gt;
+		&lt;li class="active"&gt;&lt;a href="#tab1" data-toggle="tab"&gt;天秤座&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab2" data-toggle="tab"&gt;金牛座&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab3"  data-toggle="tab"&gt;处女座&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;div class="tab-content"&gt;
+		&lt;div class="tab-pane fade in active" id="tab1"&gt;...&lt;/div&gt;
+		&lt;div class="tab-pane fade" id="tab2"&gt;...&lt;/div&gt;
+		&lt;div class="tab-pane fade" id="tab3"&gt;...&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	$(function (){
+		$("#tab_listen").tab().find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			var $target = $(e.target),
+				$relatedTarget = $(e.relatedTarget);
+
+			window.alert('您激活了'+$target.html()+'，上一个被激活的是'+$relatedTarget.html()+'。');
+		});
+	})
+&lt;/script&gt;
+	</code>
+</pre>

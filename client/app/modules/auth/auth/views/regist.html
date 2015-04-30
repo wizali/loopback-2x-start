@@ -1,0 +1,69 @@
+<style>
+    .container {
+        top: 200px;
+        position: relative;
+        border: 1px solid #999;
+        border-radius: 5px;
+        background: #efefef;
+        width: 500px;
+        padding: 40px 20px;
+    }
+</style>
+<div class="container">
+    <form class="form-horizontal" rolw="form" name="regist_form">
+        <div class="row">
+            <pho-fc type="text"
+                    cols="12"
+                    model="user.name"
+                    name="name"
+                    placeholder="name"
+                    required></pho-fc>
+        </div>
+        <div class="row">
+            <pho-fc type="email"
+                    cols="12"
+                    model="user.email"
+                    name="email"
+                    value="admin@admin.com"
+                    placeholder="email"
+                    required></pho-fc>
+        </div>
+        <div class="row">
+            <pho-fc type="password"
+                    cols="12"
+                    model="user.password"
+                    value="admin"
+                    name="passwrod"
+                    placeholder="password"
+                    required></pho-fc>
+        </div>
+        <div class="row">
+            <pho-fc type="password"
+                    cols="12"
+                    model="user.password_r"
+                    value="admin"
+                    name="password_r"
+                    placeholder="password_r"
+                    required></pho-fc>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" >
+                <div class="form-group form-group-sm">
+                    <label for="" class="control-label">choose your role:</label>
+                    <div class="form-content text-center">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="options" value="teacher" autocomplete="off" checked>teacher</label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" value="student" autocomplete="off">student</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-btns" style="position:relative;top:20px;">
+            <button type="button" class="btn btn-md btn-success" ng-click="regist()" ng-disabled="regist_form.$invalid">regist</button>
+            <button type="button" class="btn btn-md btn-success" ng-click="login()">or login</button>
+        </div>
+    </form>
+</div>

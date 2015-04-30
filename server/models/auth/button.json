@@ -1,0 +1,28 @@
+{
+    "name": "Button",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "sign": {
+            "type": "string",
+            "required": true
+        }
+    },
+    "relations": {
+        "page": {
+            "type": "belongsTo",
+            "model": "Page",
+            "foreignKey": "pageId"
+        },
+        "roles": {
+            "type": "hasMany",
+            "model": "role",
+            "through": "Button_Role",
+            "foreignKey": "buttonId"
+        }
+    }
+}

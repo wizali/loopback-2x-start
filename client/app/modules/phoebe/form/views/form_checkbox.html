@@ -1,0 +1,82 @@
+<!--table-->
+<h3 class="page-header" id="introduction">概述</h3>
+<p>介绍多选框组的使用方法</p>
+
+<h3 class="page-header" id="index">文档目录</h3>
+<ex-index show="0 1 2 3"></ex-index>
+<h3 class="page-header" id="demo">实例</h3>
+<div class="ex-box bordered">
+    <pho-cb data-group="demo_checkbox" data-value="aaa" data-change="checked()" data-caption>多选框1</pho-cb>
+    <pho-cb data-group="demo_checkbox" data-value="bbb">多选框2</pho-cb>
+    <pho-cb data-group="demo_checkbox" data-value="ccc">多选框3</pho-cb>
+</div>
+
+<h3 class="page-header" id="usage">使用方法</h3>
+<p>将<code>&lt;table&gt;</code>标签的class属性设置为<code>class="table table-striped table-bordered table-hover table-condensed"</code>，即可自动生成表格的所有样式。</p>
+<div class="ex-box bordered">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>公司</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>马冰菲</td>
+            <td>男</td>
+            <td>北京星华永泰科技有限公司</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>刘润超</td>
+            <td>男</td>
+            <td>北京星华永泰科技有限公司</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>刘育文</td>
+            <td>男</td>
+            <td>北京星华永泰科技有限公司</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<pre>
+	<code>
+        &lt;!--表格样式示例代码--&gt;
+        &lt;table class="table table-striped table-bordered table-hover table-condensed"&gt;
+        &lt;thead&gt;
+        &lt;tr&gt;
+        &lt;th&gt;#&lt;/th&gt;
+        &lt;th&gt;姓名&lt;/th&gt;
+        &lt;th&gt;性别&lt;/th&gt;
+        &lt;th&gt;公司&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+        &lt;tr&gt;
+        &lt;th scope="row"&gt;1&lt;/th&gt;
+        &lt;td&gt;马冰菲&lt;/td&gt;
+        &lt;td&gt;男&lt;/td&gt;
+        &lt;td&gt;北京星华永泰科技有限公司&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+        &lt;th scope="row"&gt;2&lt;/th&gt;
+        &lt;td&gt;刘润超&lt;/td&gt;
+        &lt;td&gt;男&lt;/td&gt;
+        &lt;td&gt;北京星华永泰科技有限公司&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+        &lt;th scope="row"&gt;3&lt;/th&gt;
+        &lt;td&gt;刘育文&lt;/td&gt;
+        &lt;td&gt;男&lt;/td&gt;
+        &lt;td&gt;北京星华永泰科技有限公司&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/tbody&gt;
+        &lt;/table&gt;
+    </code>
+</pre>form_checkbox.html
