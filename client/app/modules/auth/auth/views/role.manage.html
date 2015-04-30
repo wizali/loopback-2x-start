@@ -102,52 +102,14 @@
         border-bottom: 1px dotted #999;
         border-radius: 3px;
     }
+    .fun-btn{color: #666}
 </style>
 <div class="ex-box bordered mt10" ng-show="oper_principal">
+    <h3>Add principal to role-<b>{{roleEditing.name}}</b></h3>
     <ul>
         <li>
             <label>系统权限列表</label>
-            <ul id="function_tree">
-                <li>
-                    <label role="module"><input type="checkbox"> 字典表管理</label>
-                    <ul>
-                        <li>
-                            <label role="page"><input type="checkbox"> 性别管理</label>
-                            <ul>
-                                <li><label><input type="checkbox"> 添加</label></li>
-                                <li><label><input type="checkbox"> 编辑</label></li>
-                                <li><label><input type="checkbox"> 删除</label></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <label role="page"><input type="checkbox"> 班级管理</label>
-                            <ul>
-                                <li><label><input type="checkbox"> 添加</label></li>
-                                <li><label><input type="checkbox"> 编辑</label></li>
-                                <li><label><input type="checkbox"> 删除</label></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <label role="page"><input type="checkbox"> 学生管理</label>
-                    <ul>
-                        <li><label><input type="checkbox"> 添加学生</label></li>
-                        <li><label><input type="checkbox"> 编辑学生</label></li>
-                        <li><label><input type="checkbox"> 删除学生</label></li>
-                        <li><label><input type="checkbox"> 分配学生到班级</label></li>
-                    </ul>
-                </li>
-                <li>
-                    <label role="page"><input type="checkbox"> 老师管理</label>
-                    <ul>
-                        <li><label><input type="checkbox"> 添加老师</label></li>
-                        <li><label><input type="checkbox"> 编辑老师</label></li>
-                        <li><label><input type="checkbox"> 删除老师</label></li>
-                        <li><label><input type="checkbox"> 分配老师到班级</label></li>
-                    </ul>
-                </li>
-            </ul>
+            <ul id="function_tree"></ul>
         </li>
     </ul>
     <button type="button" class="btn btn-sm btn-success" ng-click="editPrincipalSubmit()">submit</button>
