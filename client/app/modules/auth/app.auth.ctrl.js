@@ -7,7 +7,8 @@ angular.module('app.auth')
         var url = $location.$$path;
         $(".active").removeClass('active');
 
-        var User = authServ.user;
+        var User = authServ.user,
+            page;
 
         //logout
         $scope.logout = function () {
@@ -36,5 +37,10 @@ angular.module('app.auth')
             console.log(window.localStorage);
             $location.path('/login');
         }
+
+        console.log('config left nav');
+
+        //left_nav
+
 
     }]);

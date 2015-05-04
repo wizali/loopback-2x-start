@@ -2,14 +2,12 @@
 
 angular.module('app.auth')
     .config(function ($stateProvider) {
-        console.log('config auth routes!');
-
         $stateProvider
-            .state('app.auth',{
-                url:'/auth',
-                templateUrl:'/app/modules/auth/auth.html',
-                controller:'AuthCtrl',
-                authenticate : true
+            .state('app.auth', {
+                url: '/auth',
+                templateUrl: '/app/modules/auth/auth.html',
+                controller: 'AuthCtrl',
+                authenticate: true
             })
             .state('app.auth.user', {
                 url: "/user",
@@ -41,20 +39,19 @@ angular.module('app.auth')
                 url: "/subject",
                 templateUrl: "/app/modules/auth/subject/views/subject.html",
                 controller: "subjectCtrl",
-                authenticate : true
+                authenticate: true
             })
             .state('app.auth.student', {
                 url: "/student",
                 templateUrl: "/app/modules/auth/student/views/student.html",
                 controller: "studentCtrl",
-                authenticate : true
+                authenticate: true
             })
             .state('app.auth.teacher', {
                 url: "/teacher",
                 templateUrl: "/app/modules/auth/teacher/views/teacher.html",
                 controller: "teacherCtrl",
-                authenticate : true
+                authenticate: true
             })
-
 
     });

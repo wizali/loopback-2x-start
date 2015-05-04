@@ -2,7 +2,6 @@
 
 angular.module('app.auth.class')
     .controller('AuthClassCtrl', ['$scope', '$rootScope', 'authServ', function ($scope, $rootScope, authServ) {
-        console.log('into controller');
 
         $scope.classList = [];
         var classes = authServ.classes,
