@@ -5,14 +5,14 @@ angular.module('app.auth.teacher')
 
 	$scope.theachaerList = [];
 
-	var Teacher = authServ.teacher;
-
-	Teacher.query()
-	.success(function (data){
-		$scope.theachaerList = data;
-	})
-	.error(function (err){
-		$.tips(err,'error');
-	})
+//	var Teacher = authServ.teacher;
+//
+//	Teacher.query()
+//	.success(function (data){
+//		$scope.theachaerList = data;
+//	})
+//	.error(function (err){
+//		$.tips(err,'error');
+//	})
 
 }]);

@@ -3,17 +3,9 @@
 angular.module('app.auth')
     .factory('authServ', ['$http', 'PhoebeResource', function ($http, PhoebeResource) {
         return {
-            classes: new PhoebeResource('/class'),
-            evaluate: new PhoebeResource('/evaluate'),
-            subject: new PhoebeResource('/subject'),
-            student: new PhoebeResource('/student')
-                .setInterface({login: {method: 'post'}})
-                .setInterface({logout: {method: 'post'}})
-                .setInterface({liststudnet: {method: 'get'}}),
-            teacher: new PhoebeResource('/teacher')
+            user: new PhoebeResource('/user')
                 .setInterface({login: {method: 'post'}})
                 .setInterface({logout: {method: 'post'}}),
-            user: new PhoebeResource('/user'),
             role: new PhoebeResource('/role'),
             role_user: new PhoebeResource('/role_user'),
             role_button: new PhoebeResource('/role_button'),
@@ -21,20 +13,24 @@ angular.module('app.auth')
             page_role: new PhoebeResource('/page_role'),
             button_role: new PhoebeResource('/button_role'),
             button: new PhoebeResource('/button'),
-            gender: new PhoebeResource('/gender')
+
+            gender: new PhoebeResource('/gender'),
+            classes: new PhoebeResource('/class'),
+            evaluate: new PhoebeResource('/evaluate'),
+            subject: new PhoebeResource('/subject')
         }
     }])
+    // an user service used to save user info when an user is logined in, user info can be read in the hole project
     .factory('UserService', ['$http', '$rootScope', function ($http, $rootScope) {
         var current_user;
-        var that = this;
 
-        //save user info into localStorage, saperate info in "email", "created", "id", "userId", "userRole"
+        //save user info into localStorage, saperate info in "email", "created", "id", "userId"
         function saveUserToLocalStorage(user) {
             localStorage.itms_user_email = user.email || '';
             localStorage.itms_user_created = user.created || '';
             localStorage.itms_user_id = user.id || '';
             localStorage.itms_user_userId = user.userId || '';
-            localStorage.itms_user_userRole = user.userRole || '';
+            console.log('saved user into localStorage', localStorage);
         }
 
         //when user logout, remove all user info form localStorage
@@ -43,7 +39,7 @@ angular.module('app.auth')
             localStorage.removeItem('itms_user_created');
             localStorage.removeItem('itms_user_id');
             localStorage.removeItem('itms_user_userId');
-            localStorage.removeItem('itms_user_userRole');
+            console.log('removed user form localStorage', localStorage);
         }
 
         //get all user info form localStorage, and format then into an Object
@@ -52,10 +48,10 @@ angular.module('app.auth')
                 email: localStorage.itms_user_email,
                 created: localStorage.itms_user_created,
                 id: localStorage.itms_user_id,
-                userId: localStorage.itms_user_userId,
-                userRole: localStorage.itms_user_userRole
+                userId: localStorage.itms_user_userId
             };
 
+            console.log('get user info form localStorage', user);
             return user;
         };
 

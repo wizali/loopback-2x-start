@@ -1,11 +1,7 @@
 'use strict';
 
-module.exports = function (server) {
-
-    var Student = server.models.Student,
-        Teacher = server.models.Teacher;
-
-    Student.beforeCreate = Teacher.beforeCreate = function (next, user) {
+module.exports = function (user){
+    user.beforeCreate = function (next, user) {
         if (user.name == undefined) {
             user.name = user.email;
         }
@@ -14,5 +10,5 @@ module.exports = function (server) {
         console.log('you are tring to create a student:', user.name);
         next();
     };
-
 };
+

@@ -7,27 +7,19 @@ angular.module('app.auth')
                 email: 'admin@admin.com'
             };
 
-            var Student = authServ.student,
-                Teacher = authServ.teacher;
+            var User = authServ.user;
 
             $scope.login = function () {
-                $location.path('/login')
+                $location.path('/login');
             };
 
             $scope.regist = function () {
                 var User = Teacher,
                     user = $scope.user;
-                var useRole = $("input[type=radio]:checked").val();
 
                 if (user.password !== user.password_r) {
                     $.tips('两次密码不一致！', 'error');
                     return false;
-                }
-
-                user.role = useRole;
-
-                if (useRole === 'student'){
-                    User = Student;
                 }
 
                 console.log('registing user!');
@@ -35,6 +27,9 @@ angular.module('app.auth')
                     .success(function (data) {
                         console.log(data);
                         $.tips('regist success');
+
+                        //when regist success, go to /login page
+                        $scope.login();
                     })
                     .error(function (err) {
                         $.tips(err, 'error');

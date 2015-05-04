@@ -7,8 +7,7 @@ angular.module('app.auth')
         var url = $location.$$path;
         $(".active").removeClass('active');
 
-        var Student = authServ.student,
-            Teacher = authServ.teacher;
+        var User = authServ.user;
 
         //logout
         $scope.logout = function () {
@@ -20,25 +19,14 @@ angular.module('app.auth')
                 'id': currentUser.id
             };
 
-            if (userRole === 'student') {
-                $http.post(apiServerUrl + '/students/logout?access_token=' + params.access_token)
-//                Student.logout(null,params)
-                    .success(function (data) {
-                        logoutSuccess(data);
-                    })
-                    .error(function (err) {
-                        console.log(err);
-                    });
-            } else {
-                $http.post(apiServerUrl + '/teachers/logout?access_token=' + params.access_token)
-//                Teacher.logout(null,params)
-                    .success(function (data) {
-                        logoutSuccess(data);
-                    })
-                    .error(function (err) {
-                        console.log(err);
-                    });
-            }
+            $http.post(apiServerUrl + '/users/logout?access_token=' + params.access_token)
+//                User.logout(null,params)
+                .success(function (data) {
+                    logoutSuccess(data);
+                })
+                .error(function (err) {
+                    console.log(err);
+                });
         };
 
         function logoutSuccess(data) {

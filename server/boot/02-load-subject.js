@@ -28,7 +28,7 @@ module.exports = function(app) {
 
 			console.log('subject ' + s.value + " created!");
 		})
-	})
+	});
 
 	// ACL.create({
 	// 		principalType: ACL.USER,

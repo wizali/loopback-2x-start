@@ -6,8 +6,7 @@ angular.module('app.auth.student')
         $scope.genderList = [];
         $scope.classList = [];
 
-        var Student = authServ.student,
-            Gender = authServ.gender,
+        var Gender = authServ.gender,
             Classes = authServ.classes;
         Gender.query()
             .success(function (data) {
@@ -25,13 +24,13 @@ angular.module('app.auth.student')
             });
 
         //query student list
-        Student.query()
-            .success(function (data) {
-                $scope.studentList = data;
-            })
-            .error(function (err) {
-                $.tips(err, 'error');
-            });
+//        Student.query()
+//            .success(function (data) {
+//                $scope.studentList = data;
+//            })
+//            .error(function (err) {
+//                $.tips(err, 'error');
+//            });
 
         $scope.addStudent = function () {
 

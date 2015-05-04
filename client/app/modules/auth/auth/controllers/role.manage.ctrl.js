@@ -148,7 +148,7 @@ angular.module('app.auth')
             });
         }
 
-        oper_principal
+//        oper_principal
         $scope.cancel = function (p) {
             $scope[p] = false;
         };

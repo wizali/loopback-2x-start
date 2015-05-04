@@ -60,15 +60,7 @@
         "dataSource": "mongo",
         "public": true
     },
-    "Student": {
-        "dataSource": "mongo",
-        "public": true
-    },
     "Subject": {
-        "dataSource": "mongo",
-        "public": true
-    },
-    "Teacher": {
         "dataSource": "mongo",
         "public": true
     }
