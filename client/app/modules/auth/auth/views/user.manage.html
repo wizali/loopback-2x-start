@@ -16,11 +16,16 @@
         <tr ng-repeat="u in userList track by $index">
             <td>{{u.username}}</td>
             <td>{{u.email}}</td>
-            <td><span class="label" ng-class="{'label-success':u.status === '1','label-danger':u.status === '2'}">{{u.status | dict}}</span></td>
+            <td><span class="label" ng-class="{'label-success':u.status === '1','label-danger':u.status === '2'}">{{u.status | dict}}</span>
+            </td>
             <td>{{u.created | date:'yyyy-mm-dd'}}</td>
             <td>
-                <button type="button" class="btn btn-xs btn-success" ng-click="changeUserStatus(u,'1')">启用</button>
-                <button type="button" class="btn btn-xs btn-warning" ng-click="changeUserStatus(u,'2')">停用</button>
+                <button type="button" class="btn btn-xs btn-success" ng-show="u.status === '2'"
+                        ng-click="changeUserStatus(u,'1')">启用
+                </button>
+                <button type="button" class="btn btn-xs btn-warning" ng-show="u.status === '1'"
+                        ng-click="changeUserStatus(u,'2')">停用
+                </button>
                 <button type="button" class="btn btn-xs btn-info" ng-click="addOrUpdateUser('edit',u)">编辑</button>
                 <button type="button" class="btn btn-xs btn-danger" ng-click="delUser(u,$index)">删除</button>
             </td>

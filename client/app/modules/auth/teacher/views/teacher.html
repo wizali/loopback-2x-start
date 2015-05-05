@@ -12,12 +12,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="s in studentList track by $index">
+        <tr ng-repeat="t in theachaerList track by $index">
             <td>{{$index +1}}</td>
-            <td>{{s.name}}年级</td>
-            <td>{{s.gender}}年级</td>
-            <td>{{s.number}}年级</td>
-            <td>{{s.class}}班</td>
+            <td>{{t.username}}</td>
+            <td>{{t.gender}}</td>
+            <td>{{t.number}}</td>
+            <td>{{t.class}}</td>
         </tr>
         </tbody>
     </table>
@@ -44,9 +44,11 @@
                 required></pho-fc>
         <div class="form-btns">
             <button type="button" class="btn btn-sm btn-success"
+                    ng-show="teacher.add_teacher"
                     ng-disabled="add_student.$invalid"
-                    ng-click="addStudent()">add teacher
+                    ng-click="addTeacher()">add teacher
             </button>
+            <button type="button" class="btn btn-sm btn-info" ng-show="teacher.edit_teacher">edit teacher</button>
         </div>
     </form>
 </div>
