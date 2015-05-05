@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
+
 	var Gender = app.models.Gender;
 
 	var genderDict = [{

@@ -2,6 +2,8 @@
 
 angular.module('app.auth')
     .factory('authServ', ['$http', 'PhoebeResource', function ($http, PhoebeResource) {
+        var apiServerUrl = 'http://localhost:8000/api';
+
         return {
             user: new PhoebeResource('/user')
                 .setInterface({login: {method: 'post'}})
@@ -17,7 +19,10 @@ angular.module('app.auth')
             gender: new PhoebeResource('/gender'),
             classes: new PhoebeResource('/class'),
             evaluate: new PhoebeResource('/evaluate'),
-            subject: new PhoebeResource('/subject')
+            subject: new PhoebeResource('/subject'),
+            getRoutes : function (userId){
+                return $http.get(apiServerUrl + '/pages/getRoutes?userId='+userId);
+            }
         }
     }])
     // an user service used to save user info when an user is logined in, user info can be read in the hole project
