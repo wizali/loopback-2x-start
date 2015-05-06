@@ -6,7 +6,6 @@ angular.module('app.auth')
 //     username:"admin@admin.com",
 //     passwrod:"123456"
 // })
-console.log(1111)
 
         //当路由发生变化时，如果用户没有登录，则跳转到登录页面
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
