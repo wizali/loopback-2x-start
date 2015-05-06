@@ -27,7 +27,7 @@
             "type": "hasMany",
             "through": "Page_Role",
             "foreignKey": "pageId",
-            "model": "Page"
+            "model": "Role"
         },
         "buttons": {
             "type": "hasMany",

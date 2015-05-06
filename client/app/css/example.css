@@ -1,7 +1,7 @@
 /*docs*/
 .ex-box { position: relative; padding: 2px 10px 15px; overflow: hidden; }
 .ex-box:before{content: '示例：';color: #888;font-size: 12px;position: absolute;top: 6px;font-weight: 600;}
-div.bordered { border: 1px dotted #ddd; padding: 30px 18px 20px; border-radius: 4px 4px 0 0 / 4px 4px 0 0; }
+div.bordered { border: 1px dotted #ddd; padding: 30px 18px 20px; border-radius: 4px 4px 0 0 / 4px 4px 0 0; overflow: hidden}
 pre { padding: 0 10px; border-radius: 0 0 4px 4px / 4px;}
 pre code.hljs { padding: 0 8px; line-height: 1.5em;}
 p { line-height: 1.75em; margin-bottom: 20px;}
@@ -26,6 +26,21 @@ p { line-height: 1.75em; margin-bottom: 20px;}
 .sidenav li a:before { display: inline-block; display: inline-block; content: ""; position: absolute; top: 12px; left: -8px; width: 20px; height: 0; border-top: 1px dotted #67b2dd; z-index: 1; }
 .sidenav li:before { display: inline-block; content: ""; position: absolute; z-index: 1; top: -10px; bottom: 9px; left: -8px; border: 1px dotted #67b2dd; border-width: 0 0 0 1px; }
 .sidenav li:last-child:before { height: 21px; }
+
+/*pho-tree*/
+.pho-tree, .pho-tree ul { padding: 0 }
+.pho-tree .pho-tree-menu { display: none; }
+.pho-tree li { padding-left: 10px; position: relative; list-style: none; }
+.pho-tree li a { display: block; padding: 5px; color: #767676; text-decoration: none; margin-left: 5px;}
+.pho-tree li a:hover { color: #563d7c; }
+.pho-tree .pho-tree-active > label { font-weight: 700;}
+.pho-tree .pho-tree-active a{color: #563d7c;}
+.pho-tree li input[type=checkbox] {   position: absolute;left: 13px;top: 5px; }
+.pho-tree li a:before { display: inline-block; display: inline-block; content: ""; position: absolute; top: 12px; left: -8px; width: 20px; height: 0; border-top: 1px dotted #67b2dd; z-index: 1; }
+.pho-tree li:before { display: inline-block; content: ""; position: absolute; z-index: 1; top: -10px; bottom: 9px; left: -8px; border: 1px dotted #67b2dd; border-width: 0 0 0 1px; }
+.pho-tree li:last-child:before { height: 21px; }
+.pho-tree label{font-weight: 100}
+
 
 /*phoebe.css*/
 .table-pagination { border-bottom: 1px solid #e0e0e0; background-color: #EFF3F8; overflow: hidden; margin-top: -20px; }

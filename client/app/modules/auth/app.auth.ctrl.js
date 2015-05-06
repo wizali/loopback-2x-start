@@ -38,12 +38,10 @@ angular.module('app.auth')
             $location.path('/login');
         }
 
-        console.log('config left nav');
-
         //left_nav
         var user = UserService.getCurrentUser(),
             routes = [];
-        console.log(user);
+//        console.log(user);
         authServ.getRoutes(user.userId)
             .success(function (data){
                 routes = data;
