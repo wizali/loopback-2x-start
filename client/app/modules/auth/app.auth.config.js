@@ -2,10 +2,6 @@
 
 angular.module('app.auth')
     .run(['$http', '$rootScope', '$location', 'UserService', function ($http, $rootScope, $location, UserService) {
-// UserService.setCurrentUser({
-//     username:"admin@admin.com",
-//     passwrod:"123456"
-// })
 
         //当路由发生变化时，如果用户没有登录，则跳转到登录页面
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

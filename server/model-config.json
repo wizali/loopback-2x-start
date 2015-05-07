@@ -6,7 +6,7 @@
         ]
     },
 
-    "ACL":{
+    "ACL": {
         "dataSource": "mongo",
         "public": true
     },
@@ -43,24 +43,7 @@
         "public": true
     },
 
-
-    "Class": {
-        "dataSource": "mongo",
-        "public": true
-    },
-    "Class_teacher": {
-        "dataSource": "mongo",
-        "public": true
-    },
     "Evaluate": {
-        "dataSource": "mongo",
-        "public": true
-    },
-    "Gender": {
-        "dataSource": "mongo",
-        "public": true
-    },
-    "Subject": {
         "dataSource": "mongo",
         "public": true
     }

@@ -15,14 +15,12 @@ angular.module('app.auth')
             page_role: new PhoebeResource('/page_role'),
             button_role: new PhoebeResource('/button_role'),
             button: new PhoebeResource('/button'),
+            getRoutes: function (userId) {
+                return $http.get(apiServerUrl + '/pages/getRoutes?userId=' + userId);
+            },
 
-            gender: new PhoebeResource('/gender'),
-            classes: new PhoebeResource('/class'),
-            evaluate: new PhoebeResource('/evaluate'),
-            subject: new PhoebeResource('/subject'),
-            getRoutes : function (userId){
-                return $http.get(apiServerUrl + '/pages/getRoutes?userId='+userId);
-            }
+            evaluate: new PhoebeResource('/evaluate')
+
         }
     }])
     // an user service used to save user info when an user is logined in, user info can be read in the hole project

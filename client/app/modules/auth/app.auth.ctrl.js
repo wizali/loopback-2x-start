@@ -8,13 +8,9 @@ angular.module('app.auth')
             var url = $location.$$path;
             $(".active").removeClass('active');
 
-            var User = authServ.user,
-                Page = authServ.page;
-
             //logout
             $scope.logout = function () {
                 var currentUser = UserService.getCurrentUser();
-                var userRole = currentUser.userRole;
                 var params = {
                     'access_token': currentUser.id,
                     'accessToken': currentUser.id,
@@ -22,7 +18,6 @@ angular.module('app.auth')
                 };
 
                 $http.post(apiServerUrl + '/users/logout?access_token=' + params.access_token)
-//                User.logout(null,params)
                     .success(function (data) {
                         logoutSuccess(data);
                     })
@@ -32,10 +27,7 @@ angular.module('app.auth')
             };
 
             function logoutSuccess(data) {
-                console.log(data);
                 UserService.userLogout();
-                console.log(UserService.getCurrentUser());
-                console.log(window.localStorage);
                 $location.path('/login');
             }
 
@@ -49,10 +41,9 @@ angular.module('app.auth')
                     };
 
                     TreeService.buildLinkTree(config, $("#left_nav"));
-
                 })
                 .error(function (err) {
                     $.tips(err, 'error');
-                })
+                });
 
         }]);

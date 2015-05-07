@@ -8,20 +8,10 @@
 		}
 	},
 	"relations":{
-		"class":{
-			"type":"belongsTo",
-			"model":"class",
-			"foreignKey":"classId"
-		},
-		"teacher":{
-			"type":"belongsTo",
-			"model":"teacher",
-			"foreignKey":"teacherId"
-		},
-		"student":{
-			"type":"belongsTo",
-			"model":"student",
-			"foreignKey":"studentId"
-		}
+        "user":{
+            "type":"belongsTo",
+            "model":"user",
+            "foreignKey":"userId"
+        }
 	}	
 }

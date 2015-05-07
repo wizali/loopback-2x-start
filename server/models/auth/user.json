@@ -13,6 +13,11 @@
             "model": "role",
             "through": "Role_User",
             "foreignKey": "userId"
+        },
+        "evaluates": {
+            "type": "hasMany",
+            "model": "Evaluate",
+            "foreignKey": "userId"
         }
     },
     "acls": [
