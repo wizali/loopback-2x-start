@@ -64,12 +64,16 @@ module.exports = function (server) {
 
             for (var i = 0, l = page_roles.length; i < l; i++) {
                 page_roles[i] = page_roles[i].toObject();
-                routes.push(page_roles[i]['page']);
+                if (page_roles[i]['page']){
+                    routes.push(page_roles[i]['page']);
+                }
             }
 
             for (var i = 0, l = button_roles.length; i < l; i++) {
                 button_roles[i] = button_roles[i].toObject();
-                buttons.push(button_roles[i]['button']);
+                if (button_roles[i]['button']){
+                    buttons.push(button_roles[i]['button']);
+                }
             }
 
             formatRoutesAndButtons(routes, buttons);
@@ -80,10 +84,12 @@ module.exports = function (server) {
 
             for (var i = 0, l = buttons.length; i < l; i++) {
                 for (var j = 0, m = routes.length; j < m; j++) {
-                    if (buttons[i].pageId === routes[j].id) {
-//                        console.log(buttons[i].pageId)
-//                        console.log(routes[j].id)
-                        routes.buttons ? routes.buttons.push(buttons[i]) : routes.buttons = [buttons[i]];
+                    try {
+                        if (buttons[i].pageId === routes[j].id) {
+                            routes.buttons ? routes.buttons.push(buttons[i]) : routes.buttons = [buttons[i]];
+                        }
+                    } catch (e) {
+                        console.log(e)
                     }
                 }
             }
@@ -104,7 +110,7 @@ module.exports = function (server) {
         returns: {
             arg: 'data',
             type: 'Object',
-            root:true
+            root: true
         },
         http: {
             verb: 'get',
