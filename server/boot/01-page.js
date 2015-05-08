@@ -15,11 +15,11 @@ module.exports = function (server) {
      */
     var User = server.models.user,
         Role = server.models.role,
-        Page = server.models.Page,
-        Button = server.model.Button,
-        Page_Role = server.models.Page_Role,
-        Role_User = server.models.Role_User,
-        Button_Role = server.models.Button_Role;
+        Page = server.models.page,
+        Button = server.models.button,
+        Page_Role = server.models.page_role,
+        Role_User = server.models.role_user,
+        Button_Role = server.models.button_role;
 
     //加载用户权限的方法
     Page.getRoutes = function (userId, cb) {
@@ -136,8 +136,7 @@ module.exports = function (server) {
      * 3、删除按钮、页面-角色关系；
      */
     Page.observe('before delete', function (ctx, next) {
-        var pageId = ctx.instance.pageId,
-            whereObj = {where: {roleId: roleId}};
+        var pageId = ctx.where.id;
 
         Button.find({where: {pageId: pageId}}, function (err, btns) {
             if (err) {
@@ -148,7 +147,7 @@ module.exports = function (server) {
             for (var i = 0, l = btns.length; i < l; i++) {
                 btnIds.push(btns[i].id);
             }
-            Button_Role.delete({where: {buttonId: {inq: btnIds}}}, function (err, data) {
+            Button_Role.destroyAll({buttonId: {inq: btnIds}}, function (err, data) {
                 if (err) {
                     console.log(err);
                     return false;
@@ -161,13 +160,13 @@ module.exports = function (server) {
         function delPageAndButtons() {
             var delButtons = function () {
                 var deferred = q.defer();
-                Button.delete({where: {pageId: pageId}}, deferred.makeNodeResolver());
+                Button.destroyAll({pageId: pageId}, deferred.makeNodeResolver());
                 return deferred.promise;
             };
 
             var delPageRelation = function () {
                 var deferred = q.defer();
-                Page_Role.delete({where: {pageId: pageId}}, deferred.makeNodeResolver());
+                Page_Role.destroyAll({pageId: pageId}, deferred.makeNodeResolver());
                 return deferred.promise;
             };
 

@@ -1,5 +1,5 @@
 {
-	"name":"Evaluate",
+	"name":"evaluate",
 	"base":"PersistedModel",
 	"idInjection":true,
 	"properties":{

@@ -1,5 +1,5 @@
 {
-    "name": "Page",
+    "name": "page",
     "base": "PersistedModel",
     "idInjection": true,
     "properties": {
@@ -25,13 +25,13 @@
     "relations": {
         "roles": {
             "type": "hasMany",
-            "through": "Page_Role",
+            "through": "page_role",
             "foreignKey": "pageId",
             "model": "Role"
         },
         "buttons": {
             "type": "hasMany",
-            "model": "Button",
+            "model": "button",
             "foreignKey": "pageId"
         }
     }

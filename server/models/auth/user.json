@@ -11,12 +11,12 @@
         "roles": {
             "type": "hasMany",
             "model": "role",
-            "through": "Role_User",
+            "through": "role_user",
             "foreignKey": "userId"
         },
         "evaluates": {
             "type": "hasMany",
-            "model": "Evaluate",
+            "model": "evaluate",
             "foreignKey": "userId"
         }
     },

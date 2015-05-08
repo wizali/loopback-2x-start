@@ -22,28 +22,28 @@
         "dataSource": "mongo",
         "public": true
     },
-    "Page": {
+    "page": {
         "dataSource": "mongo",
         "public": true
     },
-    "Button": {
+    "button": {
         "dataSource": "mongo",
         "public": true
     },
-    "Page_Role": {
+    "page_role": {
         "dataSource": "mongo",
         "public": true
     },
-    "Role_User": {
+    "role_user": {
         "dataSource": "mongo",
         "public": true
     },
-    "Button_Role": {
+    "button_role": {
         "dataSource": "mongo",
         "public": true
     },
 
-    "Evaluate": {
+    "evaluate": {
         "dataSource": "mongo",
         "public": true
     }

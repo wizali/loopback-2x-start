@@ -1,5 +1,5 @@
 {
-    "name": "Button",
+    "name": "button",
     "base": "PersistedModel",
     "idInjection": true,
     "properties": {
@@ -15,7 +15,7 @@
     "relations": {
         "page": {
             "type": "belongsTo",
-            "model": "Page",
+            "model": "page",
             "foreignKey": "pageId"
         },
         "roles": {

@@ -16,12 +16,30 @@ angular.module('app.auth')
 
             var Page = authServ.page,
                 Button = authServ.button;
+
+            $scope.addRootPage = function () {
+                $scope.page = {
+                    name: "itms监控系统",
+                    index: "1",
+                    url: "",
+                    description: "itms监控系统",
+                    parentId: "0"
+                };
+                $scope.OperType = 'c_module';
+                $scope.showPopBox('add_page')
+            };
+
+
             FuncTreeServ.setScope($scope);
             //============================================初始化菜单树=================================================
             //query page, and build a tree by page data
             $scope.treeData = [];
             Page.query({include: ["buttons"]})
                 .success(function (data) {
+                    if (data.length === 0) {
+                        $scope.addRootPage()
+                    }
+
                     $scope.treeData = TreeService.arrayToTreeData(data, 'id', 'parentId', '0');
                     var config = {
                         treeData: $scope.treeData,
@@ -56,7 +74,10 @@ angular.module('app.auth')
                 }
                 //非编辑时，要给新节点添加父节点ID
                 if ($scope.OperType !== 'c_edit') {
-                    $scope.page.parentId = $scope.treeNodeEditing.data('data').id;
+                    try {
+                        $scope.page.parentId = $scope.treeNodeEditing.data('data').id;
+                    } catch (e) {
+                    }
                 }
 
                 FuncTreeServ.savePage($scope.page)
@@ -249,20 +270,26 @@ angular.module('app.auth')
                         var node = data[0],
                             $treeNodeEditing = $scope.treeNodeEditing;
 
-                        //如果是编辑操作，直接更新节点，否则插入
-                        if ($scope.OperType === 'c_edit') {
-                            $treeNodeEditing.children('a').html(node.name);
-                            $treeNodeEditing.data('data', node);
-                        } else {
-                            //如果时新增操作，则添加信的树节点到树中
-                            var $node = $('<li role="page"><label><a href="javascript:void(0);">' + node.name + '</a></label></li>');
+                        try {
+                            //如果是编辑操作，直接更新节点，否则插入
+                            if ($scope.OperType === 'c_edit') {
+                                $treeNodeEditing.children('a').html(node.name);
+                                $treeNodeEditing.data('data', node);
+                            } else {
+                                var role = $scope.OperType === 'c_module' ? 'module' : 'page';
 
-                            $node.data('data', node);
-                            //如果有孩子节点，就添加到孩子节点上，否则新增孩子节点并添加
-                            if ($treeNodeEditing.children('ul').length === 0) {
-                                $treeNodeEditing.append($('<ul class="pho-tree-menu"></ul>'));
+                                //如果时新增操作，则添加信的树节点到树中
+                                var $node = $('<li role="' + role + '"><label><a href="javascript:void(0);">' + node.name + '</a></label></li>');
+
+                                $node.data('data', node);
+                                //如果有孩子节点，就添加到孩子节点上，否则新增孩子节点并添加
+                                if ($treeNodeEditing.children('ul').length === 0) {
+                                    $treeNodeEditing.append($('<ul class="pho-tree-menu"></ul>'));
+                                }
+                                $treeNodeEditing.children('ul').append($node);
                             }
-                            $treeNodeEditing.children('ul').append($node);
+                        } catch (e) {
+                            console.log(e);
                         }
 
                         $.tips('操作成功！');
@@ -274,29 +301,15 @@ angular.module('app.auth')
             },
             //删除路由权限，必须同时删除按钮中的所有按钮
             deletePage: function ($data) {
-                var pageId = $data.id,
-                    buttonIds = [],
-                    buttons = $data.buttons;
-
-                for (var i = 0, l = buttons.length; i < l; i++) {
-                    buttonIds.push(buttons[i].id);
-                }
-
-                Button.delete(buttonIds)
+                var pageId = $data.id;
+                Page.delete([pageId])
                     .success(function (data) {
+                        $scope.treeNodeEditing.remove();
                         $.tips(data);
-                        Page.delete([pageId])
-                            .success(function (data) {
-                                $scope.treeNodeEditing.remove();
-                                $.tips(data);
-                            })
-                            .error(function (err) {
-                                $.tips(err, 'error');
-                            })
                     })
                     .error(function (err) {
                         $.tips(err, 'error');
-                    })
+                    });
             },
             saveButton: function (button) {
                 Button.save([button])

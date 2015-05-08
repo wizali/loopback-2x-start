@@ -23,13 +23,13 @@
             "type": "hasMany",
             "model": "user",
             "foreignKey": "roleId",
-            "through": "Role_User"
+            "through": "role_user"
         },
         "pages": {
             "type": "hasMany",
-            "model": "Page",
+            "model": "page",
             "foreignKey": "roleId",
-            "through": "Page_Role"
+            "through": "page_role"
         }
     },
     "acls": [

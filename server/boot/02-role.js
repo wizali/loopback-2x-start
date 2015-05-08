@@ -1,6 +1,6 @@
 'use strict';
 
-var q = requre('q');
+var q = require('q');
 
 module.exports = function (server) {
     /**
@@ -15,23 +15,23 @@ module.exports = function (server) {
         Button_Role = server.models.button_role;
 
     Role.observe('before delete', function (ctx, next) {
-        var roleId = ctx.instance.roleId,
-            whereObj = {where: {roleId: roleId}};
+        var roleId = ctx.where.id,
+            whereObj = {roleId: roleId};
 
         var delUserRelation = function () {
             var deferred = q.defer();
-            Role_User.delete(whereObj, deferred.makeNodeResolver());
+            Role_User.destroyAll(whereObj, deferred.makeNodeResolver());
             return deferred.promise;
         };
 
         var delPageRelation = function () {
             var deferred = q.defer();
-            Page_Role.delete(whereObj, deferred.makeNodeResolver());
+            Page_Role.destroyAll(whereObj, deferred.makeNodeResolver());
             return deferred.promise;
         };
         var delBtnRelation = function () {
             var deferred = q.defer();
-            Button_Role.delete(whereObj, deferred.makeNodeResolver());
+            Button_Role.destroyAll(whereObj, deferred.makeNodeResolver());
             return deferred.promise;
         };
 

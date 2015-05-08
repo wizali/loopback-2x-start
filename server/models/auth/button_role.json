@@ -1,11 +1,11 @@
 {
-    "name": "Button_Role",
+    "name": "button_role",
     "base": "PersistedModel",
     "idInjection": true,
     "relations": {
         "button": {
             "type": "belongsTo",
-            "model": "Button",
+            "model": "button",
             "foreighKey": "buttonId"
         },
         "role": {

@@ -1,11 +1,11 @@
 {
-    "name": "Page_Role",
+    "name": "page_role",
     "base": "PersistedModel",
     "idInjection": true,
     "relations": {
         "page": {
             "type": "belongsTo",
-            "model": "Page",
+            "model": "page",
             "foreignKey": "pageId"
         },
         "role": {

@@ -1,5 +1,5 @@
 {
-    "name": "Role_User",
+    "name": "role_user",
     "base": "PersistedModel",
     "idInjection": true,
     "relations": {
