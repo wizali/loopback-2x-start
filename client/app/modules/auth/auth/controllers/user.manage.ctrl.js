@@ -9,7 +9,8 @@ angular.module('app.auth')
             }
         }
     })
-    .controller('AuthUserCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'UserService', function ($scope, $rootScope, authServ, $location, UserService) {
+    .controller('AuthUserCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'UserService', 'PhoebeController',
+        function ($scope, $rootScope, authServ, $location, UserService,PhoebeController) {
 
         var apiServerUrl = 'http://localhost:8000/api';
 
@@ -37,6 +38,10 @@ angular.module('app.auth')
             .error(function (err) {
                 $.tips(err, 'error');
             });
+        // var controller = new PhoebeController($scope).
+        //     createModel('userList', {
+        //         model: '/user'
+        //     })
 
         $scope.addOrUpdateUser = function (type, u) {
             if (u) {
