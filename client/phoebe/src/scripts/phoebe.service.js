@@ -76,7 +76,7 @@
                 angular.forEach(wherestr.neq, function(item, index) {
                     angular.forEach(item, function(val, key) {
                         str += (str.indexOf('?') === -1) ? '?' : '&';
-                        str += 'filter[where][' + key + '][neq]=' + val;
+                        str += 'filter[where][and][' + index + '][' + key + '][neq]=' + val;
                     });
                 });
             }

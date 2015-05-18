@@ -40,13 +40,13 @@
     function measureFormatFilter(MeasureFormat) {
         return function (val, decimals, startUnit, unit) {
             val = Number(val);
-            unit = (unit) ? unit : 'byte';
+            unit = (unit) ? unit : 'B';
             decimals = (decimals) ? decimals : 1;
             var result;
             var reg = new RegExp("^[0-9]*$");
             if (reg.test(val)) {
                 switch (unit) {
-                    case 'byte' :
+                    case 'B' :
                         result = MeasureFormat.toByteConv(val, startUnit, decimals);
                         break;
                     case 'hz'   :
@@ -262,7 +262,7 @@
                 if (theUnit == targetUnit)
                     break;
             }
-            return size.toFixed(decimals) + units[theUnit];
+            return size.toFixed(decimals) + ' ' +units[theUnit];
         };
         /**
          * 容量计算
@@ -320,158 +320,153 @@
      */
     function mapService(){
 
-        function mapFactory(object){
+        var mapFactory = function (){};
 
-            /** 存放键的数组(遍历用到) */
-            this.keys = [];
-            /** 存放数据 */
-            this.values = {};
+        /** 存放键的数组(遍历用到) */
+        mapFactory.keys = [];
+        /** 存放数据 */
+        mapFactory.values = {};
 
-            // format object to map.
+        // format object to map.
 
-            /**
-             * 放入一个键值对
-             * @param {String} key
-             * @param {Object} value
-             */
-            this.put = function(key, value) {
+        /**
+         * 放入一个键值对
+         * @param {String} key
+         * @param {Object} value
+         */
+        mapFactory.put = function(key, value) {
 
-                if(!this.hasOwnKey(key)){
-                    this.keys.push(key);
-                }
-                this.values[key] = value;
-            };
+            if(!this.hasOwnKey(key)){
+                this.keys.push(key);
+            }
+            this.values[key] = value;
+        };
 
-            /**
-             * 获取某键对应的值
-             * @param {String} key
-             * @return {Object} value
-             */
-            this.get = function(key) {
-                return this.values[key];
-            };
+        /**
+         * 获取某键对应的值
+         * @param {String} key
+         * @return {Object} value
+         */
+        mapFactory.get = function(key) {
+            return this.values[key];
+        };
 
-            /**
-             * 删除一个键值对
-             * @param {String} key
-             */
-            this.remove = function(key) {
-                var index = this.keys.indexOf(key);
-                if(index > -1)
-                    this.keys.splice(index, 1);
-                delete this.values[key];
-            };
+        /**
+         * 删除一个键值对
+         * @param {String} key
+         */
+        mapFactory.remove = function(key) {
+            var index = this.keys.indexOf(key);
+            if(index > -1)
+                this.keys.splice(index, 1);
+            delete this.values[key];
+        };
 
-            /**
-             * 遍历Map,执行处理函数
-             *
-             * @param {Function} 回调函数 function(key,value,index){..}
-             */
-            this.each = function(callback){
-                if(typeof callback != 'function'){
-                    return;
-                }
-                var len = this.keys.length;
-                for(var i=0;i<len;i++){
-                    var k = this.keys[i];
-                    callback(k,this.values[k],i);
-                }
-            };
+        /**
+         * 遍历Map,执行处理函数
+         *
+         * @param {Function} 回调函数 function(key,value,index){..}
+         */
+        mapFactory.each = function(callback){
+            if(typeof callback != 'function'){
+                return;
+            }
+            var len = this.keys.length;
+            for(var i=0;i<len;i++){
+                var k = this.keys[i];
+                callback(k,this.values[k],i);
+            }
+        };
 
-            /**
-             * 获取键值数组(类似Java的entrySet())
-             * @return 键值对象{key,value}的数组
-             */
-            this.entrys = function() {
-                var len = this.keys.length;
-                var entrys = new Array(len);
-                for (var i = 0; i < len; i++) {
-                    var k = this.keys[i];
-                    entrys[i] = {
-                        key : k,
-                        value : this.values[k]
-                    };
-                }
-                return entrys;
-            };
-
-            /**
-             * 根据索引号查找对应的键值对对象
-             * @param index
-             * @returns {*}
-             */
-            this.element = function(index){
-                var len =this.keys.length;
-                if(index >= len)
-                    return null;
-                return {
-                    key : this.keys[index],
-                    value : this.values[this.keys[index]]
+        /**
+         * 获取键值数组(类似Java的entrySet())
+         * @return 键值对象{key,value}的数组
+         */
+        mapFactory.entrys = function() {
+            var len = this.keys.length;
+            var entrys = new Array(len);
+            for (var i = 0; i < len; i++) {
+                var k = this.keys[i];
+                entrys[i] = {
+                    key : k,
+                    value : this.values[k]
                 };
+            }
+            return entrys;
+        };
+
+        /**
+         * 根据索引号查找对应的键值对对象
+         * @param index
+         * @returns {*}
+         */
+        mapFactory.element = function(index){
+            var len =this.keys.length;
+            if(index >= len)
+                return null;
+            return {
+                key : this.keys[index],
+                value : this.values[this.keys[index]]
             };
+        };
 
-            /**
-             * 如果数组为数字型数组，则进行从小到大的排序
-             * @returns {Array}
-             */
-            this.sortASC = function(){
-                this.keys.sort(function(a,b){return a>b?1:-1;});
-                return this.entrys();
-            };
+        /**
+         * 如果数组为数字型数组，则进行从小到大的排序
+         * @returns {Array}
+         */
+        mapFactory.sortASC = function(){
+            this.keys.sort(function(a,b){return a>b?1:-1;});
+            return this.entrys();
+        };
 
-            this.sortDESC = function(){
-                return this.keys.sort(function(a,b){return a<b?1:-1;});
-            };
+        mapFactory.sortDESC = function(){
+            return this.keys.sort(function(a,b){return a<b?1:-1;});
+        };
 
-            /**
-             * 判断是否存在
-             * @param key
-             * @returns {*|boolean}
-             */
-            this.hasOwnKey = function(key){
-                return this.values.hasOwnProperty(key);
-            };
+        /**
+         * 判断是否存在
+         * @param key
+         * @returns {*|boolean}
+         */
+        mapFactory.hasOwnKey = function(key){
+            return this.values.hasOwnProperty(key);
+        };
 
-            /**
-             * 清空Map
-             */
-            this.clear = function(){
-                this.keys = [];
-                this.values = {};
-            };
-
-
-            /**
-             * 判断Map是否为空
-             */
-            this.isEmpty = function() {
-                return this.keys.length === 0;
-            };
-
-            /**
-             * 获取键值对数量
-             */
-            this.size = function(){
-                return this.keys.length;
-            };
-
-            /**
-             * 重写toString
-             */
-            /*this.toString = function(){
-             var s = "{";
-             for(var i=0;i<this.keys.length;i++,s+=','){
-             var k = this.keys[i];
-             s += k+"="+this.values[k];
-             }
-             s+="}";
-             return s;
-             };*/
+        /**
+         * 清空Map
+         */
+        mapFactory.clear = function(){
+            this.keys = [];
+            this.values = {};
+        };
 
 
-            return this;
+        /**
+         * 判断Map是否为空
+         */
+        mapFactory.isEmpty = function() {
+            return this.keys.length === 0;
+        };
 
-        }
+        /**
+         * 获取键值对数量
+         */
+        mapFactory.size = function(){
+            return this.keys.length;
+        };
+
+        /**
+         * 重写toString
+         */
+        /*this.toString = function(){
+         var s = "{";
+         for(var i=0;i<this.keys.length;i++,s+=','){
+         var k = this.keys[i];
+         s += k+"="+this.values[k];
+         }
+         s+="}";
+         return s;
+         };*/
 
         return mapFactory;
 

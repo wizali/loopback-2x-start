@@ -41,7 +41,7 @@
 
 
     /**
-     * Sign up for a core module of the phoebe on the angular.
+     * Sign up for a main module of the phoebe on the angular.
      */
     angular.module('phoebe', dependencies).constant('PhoebeCons', cons).value('PhoebeContext', context).
         config(initConfigurationPhase).

@@ -34,34 +34,33 @@
      * @param broadcastEvent
      */
     function loadingDictionary(dicts, PhoebeDict, dataProvider, broadcastEvent) {
-            // Whether or not to continue.
-            if (angular.isArray(dicts)) {
-                // Start preloading to the dictionary.
-                PhoebeDict.preload(dicts).success(function(data) {
-                    // Cache dictionary items in $scope.
-                    angular.forEach(data, function(item) {
-                        var paramName = item[PhoebeDict.getForeignKey()];
-                        dataProvider[paramName] = item;
-                    });
-                    // To broadcast the loading completed event.
-                    broadcastEvent(Event.DICT_LOADED, true);
-                }).error(function(data) {
-                    dataProvider.error = data;
-                    // To broadcast the loading completed event.
-                    broadcastEvent(Event.DICT_LOADED, false);
+        // Whether or not to continue.
+        if (!dicts) return;
+            // Start preloading to the dictionary.
+            PhoebeDict.preload(dicts).success(function(data) {
+                // Cache dictionary items in $scope.
+                angular.forEach(data, function(item) {
+                    var paramName = item[PhoebeDict.getForeignKey()];
+                    dataProvider[paramName] = item;
                 });
-            } else {}
-        }
-        /**
-         * Lots of the options are loading.
-         * When all of some options are loading completed, to broadcast event.
-         * @param options
-         * @param PhoebeResource
-         * @param q
-         * @param dataProvider
-         * @param resoure
-         * @param broadcastEvent
-         */
+                // To broadcast the loading completed event.
+                broadcastEvent(Event.DICT_LOADED, true);
+            }).error(function(data) {
+                dataProvider.error = data;
+                // To broadcast the loading completed event.
+                broadcastEvent(Event.DICT_LOADED, false);
+            });
+    }
+    /**
+     * Lots of the options are loading.
+     * When all of some options are loading completed, to broadcast event.
+     * @param options
+     * @param PhoebeResource
+     * @param q
+     * @param dataProvider
+     * @param resoure
+     * @param broadcastEvent
+     */
     var reg = new RegExp("[^/]+");
 
     function loadingOptionData(options, PhoebeResource, q, dataProvider, resoure, broadcastEvent) {
@@ -568,7 +567,8 @@
                     scope = scopeSource;
                     dataProvider = scope.$dataProvider = {}; // 数据源对象，用于存放缓存的字典项与下拉选单数据
                     model = scope.$model = {}; // 缓存得到的服务端资源对象，该类对象统称为实体模型对象
-                    resoure = scope.$resoure = {}; // 实体模型对象提供的可调用服务端接口
+                    resoure = scope.$resoure = scope.$resource = {}; // 实体模型对象提供的可调用服务端接口
+
                 }
             }
             // 将Controller中所派发的事件类型，以静态常量的方式开放

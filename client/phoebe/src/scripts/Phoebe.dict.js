@@ -18,8 +18,8 @@
 
     var dictCache = {},
         dictResource,
-        includeName,
         dictForeignKey = 'dict',
+        optionsField = 'dictoptions',
         keyField = 'key',
         valueField = 'value';
 
@@ -34,19 +34,14 @@
         if(!angular.isArray(dictlist))
             return {err: "To load the data dictionary are failure!"};
         // Tectonic conditions.
-        var wherestr = {
-            or: [],
-            include: [includeName]
-        };
+        var querylist = [];
         angular.forEach(dictlist, function(item){
             // existing
             if(hasOwnDictionary(item)){
                 existingList.push(dictCache[item]);
             }else{
                 // save query.
-                var temp = {};
-                temp[dictForeignKey] = item;
-                wherestr.or.push(temp);
+                querylist.push(item);
             }
         });
         // Whether or not to continue
@@ -54,13 +49,20 @@
             return errorHandler("The resource of the dictionary is \"undefined\".");
         // do query.
         var promise;
-
-        if(wherestr.or.length > 0){
-            promise = dictResource.query(wherestr);
-            promise.success(function(list){
-                angular.forEach(list, function(item){
+        if(querylist.length){
+            promise = dictResource.queryKey(null, querylist);
+            promise.then(function(list){
+                // To cache.
+                angular.forEach(list.data, function(item){
                     dictCache[item[dictForeignKey]] = item;
                 });
+                // To join existing.
+                if(existingList.length){
+                    angular.forEach(existingList, function(item){
+                        list.data[item[dictForeignKey]] = item;
+                    });
+                }
+                return list;
             });
         }else{
             promise = {
@@ -85,16 +87,16 @@
      * @param showfield
      * @returns {*}
      */
-    function getDictionaryValue(dict, value, showfield){
+    function getDictionaryValue(dict, val, showfield){
         var result;
         // To display the field.
         if(!angular.isDefined(showfield)) showfield = valueField;
         // The options list.
         if(hasOwnDictionary(dict)){
-            var opts = dictCache[dict][includeName];
+            var opts = dictCache[dict][optionsField];
             // found value.
             for (var i = 0; i < opts.length; i++) {
-                if (opts[i][keyField] == value) {
+                if (opts[i][keyField] == val) {
                     result = opts[i][showfield];
                     break;
                 }
@@ -144,17 +146,28 @@
             return errorHandler("Phoebe load failure!");
         // When phoebe start, Get the configuration information.
         var dictConfig     = $phoebe.dict;
-        dictResource       = new PhoebeResource('/' + dictConfig.mainModel);
-        includeName        = dictConfig.include;
+
+        if(dictConfig.hasOwnProperty('modelName')){
+            dictResource       = new PhoebeResource('/' + dictConfig.modelName);
+            dictResource.setInterface({
+                queryKey: {
+                    method: 'post'
+                }
+            });
+        }
 
         if(dictConfig.hasOwnProperty('foreignKey'))
             dictForeignKey = (dictConfig.foreignKey) ? dictConfig.foreignKey : dictForeignKey;
 
-        if(dictConfig.hasOwnProperty('key'))
-            keyField = (dictConfig.key) ? dictConfig.key : keyField;
+        if(dictConfig.hasOwnProperty('optionsField'))
+            optionsField = (dictConfig.optionsField) ? dictConfig.optionsField : optionsField;
 
-        if(dictConfig.hasOwnProperty('value'))
-            valueField = (dictConfig.value) ? dictConfig.value : valueField;
+
+        if(dictConfig.hasOwnProperty('keyField'))
+            keyField = (dictConfig.keyField) ? dictConfig.keyField : keyField;
+
+        if(dictConfig.hasOwnProperty('valueField'))
+            valueField = (dictConfig.valueField) ? dictConfig.valueField : valueField;
 
         /**
          * The dictionary preloading method.
