@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.auth')
-    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'UserService', 'authServ', 'TreeService',
-        function ($http, $scope, $rootScope, $location, UserService, authServ, TreeService) {
+    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'UserService', 'authServ', 'TreeService','$sce',
+        function ($http, $scope, $rootScope, $location, UserService, authServ, TreeService,$sce) {
             //render now page
             var apiServerUrl = 'http://localhost:8000/api';
             var url = $location.$$path;
@@ -45,5 +45,6 @@ angular.module('app.auth')
                 .error(function (err) {
                     $.tips(err, 'error');
                 });
+
 
         }]);

@@ -18,7 +18,7 @@
         'phoebe.httpService',
         'phoebe.resource',
         'phoebe.dict',
-        'phoebe.controller',
+        'phoebe.controller'
     ];
 
     /**
@@ -43,81 +43,87 @@
     /**
      * Sign up for a main module of the phoebe on the angular.
      */
-    angular.module('phoebe', dependencies).constant('PhoebeCons', cons).value('PhoebeContext', context).
-        config(initConfigurationPhase).
-        provider('$phoebe', $phoebe).
-        run(initOperationPhase).
-        directive('levelOne',['$compile',function($compile){
+    angular.module('phoebe', dependencies)
+        .constant('PhoebeCons', cons)
+        .value('PhoebeContext', context)
+        .config(initConfigurationPhase)
+        .provider('$phoebe', $phoebe)
+        .run(initOperationPhase)
+
+        .directive('levelOne', ['$compile', function ($compile) {
             return {
-                restrict:'E',
-                scope:true,
+                restrict: 'E',
+                scope: true,
                 transclude: 'tEle',
-                compile:function(tEle,tAttrs,trans){
-                    console.log('compile→'+'levelOne'+tEle.html());
+                compile: function (tEle, tAttrs, trans) {
+                    console.log('compile→' + 'levelOne' + tEle.html());
                     return {
-                        pre:function(scope,iEle,iAttrs){
-                            console.log('pre→'+'levelOne'+iEle.html());
+                        pre: function (scope, iEle, iAttrs) {
+                            console.log('pre→' + 'levelOne' + iEle.html());
                         },
-                        post:function(scope,iEle,iAttrs){
+                        post: function (scope, iEle, iAttrs) {
                             iEle.append('<level:two></level:two>');
                             $compile(iEle);
-                            console.log('post→'+'levelOne'+iEle.html());
+                            console.log('post→' + 'levelOne' + iEle.html());
                         }
                     };
                 }
             };
-        }]).directive('levelTwo',function(){
-        return {
-            restrict:'E',
-            scope: true,
-            transclude: 'tEle',
-            compile:function(tEle,tAttrs,trans){
-                tEle.append('<level:three></level:three>');
-                console.log('compile→'+'levelTwo'+tEle.html());
-                return {
-                    pre:function(scope,iEle,iAttrs){
-                        console.log('pre→'+'levelTwo'+iEle.html());
-                    },
-                    post:function(scope,iEle,iAttrs){
-                        console.log('post→'+'levelTwo'+iEle.html());
-                    }
-                };
-            }
-        };
-    }).directive('levelThree',function(){
-        return {
-            restrict:'E',
-            template    : 'hello,111111',
-            scope:true,
-            transclude: 'tEle',
-            compile:function(tEle,tAttrs,trans){
-                console.log('compile→'+'levelThree'+tEle.html());
-                return {
-                    pre:function(scope,iEle,iAttrs){
-                        console.log('pre→'+'levelThree'+iEle.html());
-                    },
-                    post:function(scope,iEle,iAttrs){
-                        console.log('post→'+'levelThree'+iEle.html());
-                    }
-                };
-            }
-        };
-    });
+        }])
+        .directive('levelTwo', function () {
+            return {
+                restrict: 'E',
+                scope: true,
+                transclude: 'tEle',
+                compile: function (tEle, tAttrs, trans) {
+                    tEle.append('<level:three></level:three>');
+                    console.log('compile→' + 'levelTwo' + tEle.html());
+                    return {
+                        pre: function (scope, iEle, iAttrs) {
+                            console.log('pre→' + 'levelTwo' + iEle.html());
+                        },
+                        post: function (scope, iEle, iAttrs) {
+                            console.log('post→' + 'levelTwo' + iEle.html());
+                        }
+                    };
+                }
+            };
+        })
+        .directive('levelThree', function () {
+            return {
+                restrict: 'E',
+                template: 'hello,111111',
+                scope: true,
+                transclude: 'tEle',
+                compile: function (tEle, tAttrs, trans) {
+                    console.log('compile→' + 'levelThree' + tEle.html());
+                    return {
+                        pre: function (scope, iEle, iAttrs) {
+                            console.log('pre→' + 'levelThree' + iEle.html());
+                        },
+                        post: function (scope, iEle, iAttrs) {
+                            console.log('post→' + 'levelThree' + iEle.html());
+                        }
+                    };
+                }
+            };
+        });
 
     /**
      * Perform the configuration phase of the work.
      */
-    
-    function initConfigurationPhase () {
+
+    function initConfigurationPhase() {
 
     }
+
     initConfigurationPhase.$inject = [];
 
     /**
      * Perform the configuration phase of the work.
      */
     initOperationPhase.$inject = [];
-    function initOperationPhase () {
+    function initOperationPhase() {
 
     }
 
@@ -125,13 +131,13 @@
      * Create Phoebe's service.
      */
     $phoebe.$inject = [];
-    function $phoebe(){
+    function $phoebe() {
         /**
          * Cache configuration information.
          * @type {{}}
          */
         var initList = {};
-        this.$get = function(){
+        this.$get = function () {
             return initList;
         };
 
@@ -142,9 +148,9 @@
          * @param config
          * @returns {$phoebe}
          */
-        this.preinit = function(module, config){
+        this.preinit = function (module, config) {
             // Save the config info.
-            if(angular.isDefined(module) && angular.isDefined(config)){
+            if (angular.isDefined(module) && angular.isDefined(config)) {
                 initList[module] = config;
             }
             return this;

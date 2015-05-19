@@ -65,7 +65,7 @@ angular.module('app.auth')
 
                 console.log('get user info form localStorage', user);
                 return user;
-            };
+            }
 
             return {
                 getCurrentUser: function() {

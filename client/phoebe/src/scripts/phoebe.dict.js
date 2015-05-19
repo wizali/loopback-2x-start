@@ -32,7 +32,7 @@
         var existingList = [];
         // Whether or not to continue
         if(!angular.isArray(dictlist))
-            return {err: "To load the data dictionary are failure!"};
+            return {err: 'To load the data dictionary are failure!'};
         // Tectonic conditions.
         var querylist = [];
         angular.forEach(dictlist, function(item){
@@ -96,7 +96,7 @@
             var opts = dictCache[dict][optionsField];
             // found value.
             for (var i = 0; i < opts.length; i++) {
-                if (opts[i][keyField] == val) {
+                if (opts[i][keyField] === val) {
                     result = opts[i][showfield];
                     break;
                 }
@@ -112,7 +112,7 @@
      */
     function hasOwnDictionary(dictName){
         if(!dictName || dictName === '')
-            return errorHandler("The name of the dictionary is \"undefined\".");
+            return errorHandler('The name of the dictionary is \"undefined\".');
         else
             return dictCache.hasOwnProperty(dictName);
     }
@@ -143,7 +143,7 @@
     function PhoebeDictFactory ($phoebe, PhoebeResource) {
         // Whether or not to continue
         if(!$phoebe.hasOwnProperty('dict'))
-            return errorHandler("Phoebe load failure!");
+            return errorHandler('Phoebe load failure!');
         // When phoebe start, Get the configuration information.
         var dictConfig     = $phoebe.dict;
 
