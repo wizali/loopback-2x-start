@@ -5,7 +5,7 @@
 module.exports = function () {
     return function requestHandler(req, res, next) {
     	var app = req.app;
-        console.log('`````````````````````````````')
+        console.log('`````````````````````````````');
         // console.log('baseUrl:  ',req.baseUrl);
         // console.log('body:  ',req.body);
         // console.log('cookies:  ',req.cookies);
@@ -15,7 +15,7 @@ module.exports = function () {
         console.log('query:  ',req.query);
         // console.log('username:  ',req.query.username);
         // console.log('originalUrl:  ',req.originalUrl);
-        console.log('`````````````````````````````')
+        console.log('`````````````````````````````');
 
         //check req.query.access_token, if exist, next(), or return fakse;
         var at = req.app.models.AccessToken;
@@ -27,7 +27,7 @@ module.exports = function () {
             }
             console.log(data);
             next();
-        })
+        });
 
 
         // next();
