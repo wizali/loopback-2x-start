@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.auth')
-    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'AccessServ', 'authServ', 'TreeService','$sce',
-        function ($http, $scope, $rootScope, $location, AccessServ, authServ, TreeService,$sce) {
+    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'AccessServ', 'authServ', 'TreeService',
+        function ($http, $scope, $rootScope, $location, AccessServ, authServ, TreeService) {
             //render now page
             var apiServerUrl = 'http://localhost:8000/api';
             var url = $location.$$path;
@@ -28,8 +28,10 @@ angular.module('app.auth')
 
             //left_nav
             var user = AccessServ.getUser();
-            authServ.getRoutes(user.userid)
+            var Page = authServ.page;
+            Page.getRoutes(null,{userId: user.userid})
                 .success(function (data) {
+                    AccessServ.setPrinciple(data);
                     var config = {
                         treeData: TreeService.arrayToTreeData(data, 'id', 'parentId', '0'),
                         id: "left_nav_ul"
@@ -40,6 +42,5 @@ angular.module('app.auth')
                 .error(function (err) {
                     $.tips(err, 'error');
                 });
-
 
         }]);

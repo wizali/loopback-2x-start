@@ -15,8 +15,9 @@ module.exports = function(Page) {
      */
 
     //加载用户权限的方法
-    Page.getRoutes = function(userId, cb) {
-        var app = Page.app,
+    Page.getRoutes = function(user, cb) {
+        var userId = user.userId,
+            app = Page.app,
             User = app.models.user,
             Role = app.models.role,
             Button = app.models.button,
@@ -115,14 +116,15 @@ module.exports = function(Page) {
             for (var i = 0, l = buttons.length; i < l; i++) {
                 for (var j = 0, m = routes.length; j < m; j++) {
                     try {
-                        if (buttons[i].pageId === routes[j].id) {
-                            routes.buttons ? routes.buttons.push(buttons[i]) : routes.buttons = [buttons[i]];
+                        if (buttons[i].pageId.toString() === routes[j].id.toString()) {
+                            routes[j].buttons ? routes[j].buttons.push(buttons[i]) : routes[j].buttons = [buttons[i]];
                         }
                     } catch (e) {
                         console.log(e)
                     }
                 }
             }
+
 
             cb(null, routes);
         }
@@ -131,8 +133,9 @@ module.exports = function(Page) {
     Page.remoteMethod('getRoutes', {
         description: 'remote mothod for get routes by current user',
         accepts: [{
-            arg: 'userId',
-            type: 'string',
+            arg: 'user',
+            type: 'object',
+            http: {source: 'body'},
             required: true
         }],
         returns: {
@@ -141,7 +144,7 @@ module.exports = function(Page) {
             root: true
         },
         http: {
-            verb: 'get',
+            verb: 'post',
             path: '/getRoutes'
         }
     });

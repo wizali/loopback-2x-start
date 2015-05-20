@@ -19,13 +19,15 @@ angular.module('app.auth')
             role: new PhoebeResource('/role'),
             role_user: new PhoebeResource('/role_user'),
             role_button: new PhoebeResource('/role_button'),
-            page: new PhoebeResource('/page'),
+            page: new PhoebeResource('/page')
+                .setInterface({
+                    getRoutes : {
+                        method: 'post'
+                    }
+                }),
             page_role: new PhoebeResource('/page_role'),
             button_role: new PhoebeResource('/button_role'),
-            button: new PhoebeResource('/button'),
-            getRoutes: function (userId) {
-                return $http.get(apiServerUrl + '/pages/getRoutes?userId=' + userId);
-            }
+            button: new PhoebeResource('/button')
         }
     }])
 
@@ -48,10 +50,12 @@ angular.module('app.auth')
             var CURRENT_USER;
             var CURRENT_USER_PRINCIPLE;
             var localStorage = window.localStorage;
-            //用户登录有效时长，默认为7天
+                //用户登录有效时长，默认为7天
             var TTL = 1000 * 60 * 24 * 7,
+                //用户未登录时默认跳转的页面
                 NO_LOGIN_PAGE = '/login',
-                PAGE_FREE = ['/regist','/login'];
+                //白名单，不用登录就可以访问
+                WHITE_LIST = ['/regist','/login'];
             var that = this;
 
             //当路由发生变化时，如果用户没有登录，则跳转到登录页面
@@ -64,10 +68,23 @@ angular.module('app.auth')
                 }
             });
 
+            //当路由变化并加载完毕后，检查用户对该页面的按钮权限，并将没有权限的那牛移除
+            $rootScope.$on('$locationChangeSuccess', function(event, next, nextParams) {
+                var path = $location.$$path;
+//                var buttons = that.getButtons(path);
+
+                var $buttons = $('button[data-access=add]');
+
+                angular.forEach($buttons,function (btn){
+                    $(btn).remove()
+                })
+
+            });
+
             //检查目标路由是否不需要用户登录
             function isUrlFree(url) {
-                for (var i = 0, l = PAGE_FREE.length; i < l; i++) {
-                    if (url === PAGE_FREE[i]) {
+                for (var i = 0, l = WHITE_LIST.length; i < l; i++) {
+                    if (url === WHITE_LIST[i]) {
                         return true;
                     }
                 }
@@ -82,14 +99,14 @@ angular.module('app.auth')
                 if (config.NO_LOGIN_PAGE) {
                     NO_LOGIN_PAGE = config.NO_LOGIN_PAGE;
                 }
-                if (config.PAGE_FREE) {
-                    PAGE_FREE = config.PAGE_FREE;
+                if (config.WHITE_LIST) {
+                    WHITE_LIST = config.WHITE_LIST;
                 }
             };
 
             //用户临时添加不需要登录的路由
             this.addFreeUrl = function (url) {
-                PAGE_FREE.push(url)
+                WHITE_LIST.push(url)
             };
 
             //从localStorage中取出当前用户信息
@@ -151,7 +168,7 @@ angular.module('app.auth')
             };
 
             //获取当前用户对某个页面的按钮权限
-            this.getButton = function (page) {
+            this.getButtons = function (page) {
 
             };
 
