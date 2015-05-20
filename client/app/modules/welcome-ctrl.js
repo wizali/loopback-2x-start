@@ -8,7 +8,7 @@
  * @requires $location
  * @requires User
  **/
-angular.module('app.access')
+angular.module('application')
     .controller('WelcomeCtrl', function ($scope, $rootScope, $state, $location) {
 
 

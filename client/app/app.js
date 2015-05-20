@@ -10,7 +10,6 @@ var application = angular.module('application', [
     'phoebe',
     'phoebe.library',
     'ngCookies',
-    'app.access',
     'app.auth',
     'app.tutorial'
 ]);
@@ -32,4 +31,7 @@ application
 
             $locationProvider.html5Mode(true);
         }
-    ]);
+    ])
+    .controller('AppCtrl', function ($scope, $rootScope) {
+
+    });

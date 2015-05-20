@@ -1,7 +1,7 @@
 'use strict';
 angular.module('app.auth')
-    .controller('AuthRoleCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'UserService', 'FuncTreeServ', 'TreeService', 'AuthRoleServ',
-        function ($scope, $rootScope, authServ, $location, UserService, FuncTreeServ, TreeService, AuthRoleServ) {
+    .controller('AuthRoleCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'AccessServ', 'FuncTreeServ', 'TreeService', 'AuthRoleServ',
+        function ($scope, $rootScope, authServ, $location, AccessServ, FuncTreeServ, TreeService, AuthRoleServ) {
 
             var apiServerUrl = 'http://localhost:8000/api';
 

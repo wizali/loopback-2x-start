@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.auth')
-    .factory('authServ', ['$http', 'PhoebeResource', function($http, PhoebeResource) {
+    .factory('authServ', ['$http', 'PhoebeResource', function ($http, PhoebeResource) {
         var apiServerUrl = 'http://localhost:8000/api';
 
         return {
@@ -23,73 +23,141 @@ angular.module('app.auth')
             page_role: new PhoebeResource('/page_role'),
             button_role: new PhoebeResource('/button_role'),
             button: new PhoebeResource('/button'),
-            getRoutes: function(userId) {
+            getRoutes: function (userId) {
                 return $http.get(apiServerUrl + '/pages/getRoutes?userId=' + userId);
-            },
-
-            evaluate: new PhoebeResource('/evaluate')
-
+            }
         }
     }])
-    // an user service used to save user info when an user is logined in, user info can be read in the hole project
-    .factory('UserService', ['$http', '$rootScope',
-        function($http, $rootScope) {
-            var current_user;
 
-            //save user info into localStorage, saperate info in "email", "created", "id", "userId"
-            function saveUserToLocalStorage(user) {
-                localStorage.itms_user_email = user.email || '';
-                localStorage.itms_user_created = user.created || '';
-                localStorage.itms_user_id = user.id || '';
-                localStorage.itms_user_userId = user.userId || '';
-                console.log('saved user into localStorage', localStorage);
-            }
+/**
+ *
+ * 当页面跳转时，检查当前用户是否登录，如果用户没有登录，则跳转到登录页面
+ *
+ * 用户登录后，将用户名、用户ID、access_token作为current_user变量的属性存放在localStorage和$rootScope
+ * 当页面刷新时，从localStorage中取出current_user，如果current_user存在，则证明用户已经登录过
+ * $rootScope中的current_user用于在页面中显示当前用户名
+ * 用户对服务器端的每一次访问，都将access_token携带在URL的后面，以便后台检查请求是否合法
+ *
+ * 用户登录以后，从后台取出当前用户所有的页面权限和按钮权限，保存在CURRENT_USER_PRINCIPLE中。然后根据这些权限做2以下事情：
+ *      1、渲染左侧菜单树；
+ *      2、当页面跳转时，检查用户对目标页面拥有的按钮权限，将无权访问的按钮从页面中拿掉
+ *
+ */
+    .service('AccessServ', ['$http', '$rootScope', '$location',
+        function ($http, $rootScope, $location) {
+            var CURRENT_USER;
+            var CURRENT_USER_PRINCIPLE;
+            var localStorage = window.localStorage;
+            //用户登录有效时长，默认为7天
+            var TTL = 1000 * 60 * 24 * 7,
+                NO_LOGIN_PAGE = '/login',
+                PAGE_FREE = ['/regist','/login'];
+            var that = this;
 
-            //when user logout, remove all user info form localStorage
-            function removeUserFormLocalStorage() {
-                localStorage.removeItem('itms_user_email');
-                localStorage.removeItem('itms_user_created');
-                localStorage.removeItem('itms_user_id');
-                localStorage.removeItem('itms_user_userId');
-                console.log('removed user form localStorage', localStorage);
-            }
-
-            //get all user info form localStorage, and format then into an Object
-            function getUserFromLocalStorage() {
-                var user = {
-                    email: localStorage.itms_user_email,
-                    created: localStorage.itms_user_created,
-                    id: localStorage.itms_user_id,
-                    userId: localStorage.itms_user_userId
-                };
-
-                console.log('get user info form localStorage', user);
-                return user;
-            }
-
-            return {
-                getCurrentUser: function() {
-                    if (!current_user) {
-                        if (window.localStorage.getItem('itms_user_email')) {
-                            current_user = $rootScope.currentUser = getUserFromLocalStorage();
-                        }
+            //当路由发生变化时，如果用户没有登录，则跳转到登录页面
+            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+                var isFree = isUrlFree(toState.url);
+                if (!that.getUser()) {
+                    if (!that.getUser() && !isFree) {
+                        $location.path(NO_LOGIN_PAGE);
                     }
-                    return current_user;
-                },
-                setCurrentUser: function(user) {
-                    current_user = $rootScope.currentUser = user;
-                    saveUserToLocalStorage(user)
-                },
-                userLogin: function(user) {
-                    //when login success, set user inof into UserService, and save it at localStorage
-                    current_user = $rootScope.currentUser = user;
+                }
+            });
 
-                    saveUserToLocalStorage(user);
-                },
-                userLogout: function(user) {
-                    $rootScope.currentUser = current_user = null;
-                    removeUserFormLocalStorage();
+            //检查目标路由是否不需要用户登录
+            function isUrlFree(url) {
+                for (var i = 0, l = PAGE_FREE.length; i < l; i++) {
+                    if (url === PAGE_FREE[i]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            //设置用户权限的相关信息
+            this.config = function (config) {
+                if (config.TTL) {
+                    TTL = config.TTL;
+                }
+                if (config.NO_LOGIN_PAGE) {
+                    NO_LOGIN_PAGE = config.NO_LOGIN_PAGE;
+                }
+                if (config.PAGE_FREE) {
+                    PAGE_FREE = config.PAGE_FREE;
                 }
             };
-        }
-    ]);
+
+            //用户临时添加不需要登录的路由
+            this.addFreeUrl = function (url) {
+                PAGE_FREE.push(url)
+            };
+
+            //从localStorage中取出当前用户信息
+            function getUserFormLocal() {
+                return {
+                    access_token: localStorage.itms_user_access_token,
+                    userid: localStorage.itms_user_id,
+                    username: localStorage.itms_user_name
+                }
+            }
+
+            //将当前用户信息存放在localStorage中
+            function setUserToLocal(user) {
+                localStorage.itms_user_access_token = user.access_token || '';
+                localStorage.itms_user_id = user.userid || '';
+                localStorage.itms_user_name = user.username || '';
+            }
+
+            //设置用户登录有效期
+            this.setTtl = function (t) {
+                TTL = t;
+            };
+            this.getTtl = function () {
+                return TTL;
+            };
+
+            //设置当前用户
+            this.setUser = function (user) {
+
+                CURRENT_USER = $rootScope.CURRENT_USER = user;
+                setUserToLocal(user);
+            };
+
+            //取出当前用户信息
+            this.getUser = function () {
+                if (!CURRENT_USER) {
+                    if (localStorage.getItem('itms_user_name')) {
+                        CURRENT_USER = $rootScope.CURRENT_USER = getUserFormLocal();
+                    }
+                }
+                return CURRENT_USER;
+            };
+
+            this.logout = function () {
+                CURRENT_USER = $rootScope.CURRENT_USER = {};
+                localStorage.itms_user_access_token = '';
+                localStorage.itms_user_id = '';
+                localStorage.itms_user_name = '';
+            };
+
+            //获取当前用户的权限
+            this.getPrinciple = function () {
+                return CURRENT_USER_PRINCIPLE;
+            };
+
+            //设置当前用户的权限
+            this.setPrinciple = function (principles) {
+                CURRENT_USER_PRINCIPLE = principles;
+            };
+
+            //获取当前用户对某个页面的按钮权限
+            this.getButton = function (page) {
+
+            };
+
+            //将目标页面中不属于用户按钮权限的按钮移除
+            this.removeButtonFormPage = function () {
+
+            };
+
+        }]);

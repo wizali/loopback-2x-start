@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.auth')
-    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'UserService', 'authServ', 'TreeService','$sce',
-        function ($http, $scope, $rootScope, $location, UserService, authServ, TreeService,$sce) {
+    .controller('AuthCtrl', ['$http', '$scope', '$rootScope', '$location', 'AccessServ', 'authServ', 'TreeService','$sce',
+        function ($http, $scope, $rootScope, $location, AccessServ, authServ, TreeService,$sce) {
             //render now page
             var apiServerUrl = 'http://localhost:8000/api';
             var url = $location.$$path;
@@ -10,14 +10,9 @@ angular.module('app.auth')
 
             //logout
             $scope.logout = function () {
-                var currentUser = UserService.getCurrentUser();
-                var params = {
-                    'access_token': currentUser.id,
-                    'accessToken': currentUser.id,
-                    'id': currentUser.id
-                };
+                var currentUser = AccessServ.getUser();
 
-                $http.post(apiServerUrl + '/users/logout?access_token=' + params.access_token)
+                $http.post(apiServerUrl + '/users/logout?access_token=' + currentUser.access_token)
                     .success(function (data) {
                         logoutSuccess(data);
                     })
@@ -27,13 +22,13 @@ angular.module('app.auth')
             };
 
             function logoutSuccess(data) {
-                UserService.userLogout();
+                AccessServ.logout();
                 $location.path('/login');
             }
 
             //left_nav
-            var user = UserService.getCurrentUser();
-            authServ.getRoutes(user.userId)
+            var user = AccessServ.getUser();
+            authServ.getRoutes(user.userid)
                 .success(function (data) {
                     var config = {
                         treeData: TreeService.arrayToTreeData(data, 'id', 'parentId', '0'),

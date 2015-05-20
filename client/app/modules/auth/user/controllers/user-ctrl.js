@@ -9,8 +9,8 @@ angular.module('app.auth')
             }
         }
     })
-    .controller('AuthUserCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'UserService', 'PhoebeController',
-        function ($scope, $rootScope, authServ, $location, UserService,PhoebeController) {
+    .controller('AuthUserCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'AccessServ', 'PhoebeController',
+        function ($scope, $rootScope, authServ, $location, AccessServ,PhoebeController) {
 
         var apiServerUrl = 'http://localhost:8000/api';
 
