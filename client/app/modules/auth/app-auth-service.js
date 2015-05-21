@@ -21,7 +21,7 @@ angular.module('app.auth')
             role_button: new PhoebeResource('/role_button'),
             page: new PhoebeResource('/page')
                 .setInterface({
-                    getRoutes : {
+                    getRoutes: {
                         method: 'post'
                     }
                 }),
@@ -50,12 +50,12 @@ angular.module('app.auth')
             var CURRENT_USER;
             var CURRENT_USER_PRINCIPLE;
             var localStorage = window.localStorage;
-                //用户登录有效时长，默认为7天
+            //用户登录有效时长，默认为7天
             var TTL = 1000 * 60 * 24 * 7,
-                //用户未登录时默认跳转的页面
+            //用户未登录时默认跳转的页面
                 NO_LOGIN_PAGE = '/login',
-                //白名单，不用登录就可以访问
-                WHITE_LIST = ['/regist','/login'];
+            //白名单，不用登录就可以访问
+                WHITE_LIST = ['/regist', '/login'];
             var that = this;
 
             //当路由发生变化时，如果用户没有登录，则跳转到登录页面
@@ -69,13 +69,13 @@ angular.module('app.auth')
             });
 
             //当路由变化并加载完毕后，检查用户对该页面的按钮权限，并将没有权限的那牛移除
-            $rootScope.$on('$locationChangeSuccess', function(event, next, nextParams) {
+            $rootScope.$on('$locationChangeSuccess', function (event, next, nextParams) {
                 var path = $location.$$path;
 //                var buttons = that.getButtons(path);
 
                 var $buttons = $('button[data-access=add]');
 
-                angular.forEach($buttons,function (btn){
+                angular.forEach($buttons, function (btn) {
                     $(btn).remove()
                 })
 
@@ -169,7 +169,14 @@ angular.module('app.auth')
 
             //获取当前用户对某个页面的按钮权限
             this.getButtons = function (page) {
+                var btns = [];
+                angular.forEach(CURRENT_USER_PRINCIPLE, function (p) {
+                    if (p.url === page) {
+                        btns = p.buttons || [];
+                    }
+                });
 
+                return btns;
             };
 
             //将目标页面中不属于用户按钮权限的按钮移除
