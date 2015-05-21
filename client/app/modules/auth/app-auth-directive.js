@@ -6,6 +6,7 @@ angular.module('app.auth')
  * 被验证的按钮必须有"data-access-btn"属性，且该属性的值必须和页面中某个按钮权限的sign字段对应
  * 如果该按钮不属于权限管理的范围，可以不用验证
  * 验证方法是：用该按钮"data-access-btn"属性的值和该页面中可被访问的按钮数组对比
+ * 校验前监听AccessServ.getPrinciple()，如果有值，才进行验证
  */
     .directive('accessBtn', ['$rootScope', '$location', 'AccessServ',
         function ($rootScope, $location, AccessServ) {
@@ -28,7 +29,7 @@ angular.module('app.auth')
                     if (sign && sign !== '') {
 
                         scope.$watch(function () {
-                            return AccessServ.getPrinciple()
+                            return AccessServ.getPrinciple();
                         }, function (newVal, oldVal, scope) {
                             if (newVal) {
                                 var btns = AccessServ.getButtons(path);

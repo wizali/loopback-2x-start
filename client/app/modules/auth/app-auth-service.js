@@ -68,19 +68,6 @@ angular.module('app.auth')
                 }
             });
 
-            //当路由变化并加载完毕后，检查用户对该页面的按钮权限，并将没有权限的那牛移除
-            $rootScope.$on('$locationChangeSuccess', function (event, next, nextParams) {
-                var path = $location.$$path;
-//                var buttons = that.getButtons(path);
-
-                var $buttons = $('button[data-access=add]');
-
-                angular.forEach($buttons, function (btn) {
-                    $(btn).remove()
-                })
-
-            });
-
             //检查目标路由是否不需要用户登录
             function isUrlFree(url) {
                 for (var i = 0, l = WHITE_LIST.length; i < l; i++) {
