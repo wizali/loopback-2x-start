@@ -132,13 +132,6 @@
             str += 'filter[where][' + wherestr.gt.field + '][gt]=' + wherestr.gt.val;
         }
 
-        //add access_token form localStorage
-        var access_token = window.localStorage.itms_user_access_token;
-        if (str.indexOf('?') === -1) {
-            str += '?';
-        }
-        str += '&access_token=' + access_token;
-        console.log(str);
         return str;
     }
 

@@ -4,32 +4,47 @@
 
 module.exports = function () {
     return function requestHandler(req, res, next) {
-    	var app = req.app;
-        console.log('`````````````````````````````');
-        // console.log('baseUrl:  ',req.baseUrl);
-        // console.log('body:  ',req.body);
-        // console.log('cookies:  ',req.cookies);
 
-        console.log('path:  ',req.path);
-        // console.log('params:  ',req.params);
-        console.log('query:  ',req.query);
-        // console.log('username:  ',req.query.username);
-        // console.log('originalUrl:  ',req.originalUrl);
+
+        console.log('`````````````````````````````');
+        console.log('path:  ', req.path);
+        console.log('query:  ', req.query);
         console.log('`````````````````````````````');
 
-        //check req.query.access_token, if exist, next(), or return fakse;
-        var at = req.app.models.AccessToken;
-        var testId = 'HKGXgalRrryGtrPFSb9QKgg68TJjWC6tKHHLtgFR6BkouZ5RJ60UnjB0gwqQJVh7';
+        var whiteList = ['/api/users/login'];
+        var path = req.path;
 
-        at.exists(testId,function (err,data){
-            if (err){
-                next();
+        function isFree(url) {
+            var f = 0;
+            for (var i = 0, l = whiteList.length; i < l; i++) {
+                if (whiteList[i] === url) {
+                    f = 1;
+                }
             }
-            console.log(data);
-            next();
-        });
+            return f;
+        }
 
+        if (!isFree(path)) {
+            var AccessToken = req.app.models.AccessToken;
+            var token = req.query.token;
+            if (!token) {
+                return res.send({
+                    message: 'authenticate failed!',
+                    status: 401
+                });
+            }
 
-        // next();
+            AccessToken.exists(token, function (err, data) {
+                if (err || !data) {
+                    return res.send({
+                        message: 'authenticate failed!',
+                        status: 401
+                    });
+                }
+                return next();
+            });
+        } else {
+            return next();
+        }
     }
 };	

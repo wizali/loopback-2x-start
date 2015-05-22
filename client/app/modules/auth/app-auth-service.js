@@ -137,6 +137,11 @@ angular.module('app.auth')
                 return CURRENT_USER;
             };
 
+            //取出当前用户的access_token
+            this.getToken = function () {
+                return $rootScope.CURRENT_USER.access_token;
+            };
+
             this.logout = function () {
                 CURRENT_USER = $rootScope.CURRENT_USER = {};
                 localStorage.itms_user_access_token = '';
@@ -171,4 +176,45 @@ angular.module('app.auth')
 
             };
 
-        }]);
+        }])
+    .factory('httpInterceptor', ['$rootScope', function ($rootScope) {
+
+        return {
+            /**
+             * http请求的拦截器
+             * 如果是前台路由跳转的请求（URL以.html结尾），则不拦截
+             * 如果时访问后台数据的请求（URL不以.html结尾），并且不在白名单中，则添加用户的access_token到URL中
+             * @param config
+             * @returns {*}
+             */
+            'request': function (config) {
+                var url = config.url;
+
+                if (url.indexOf('.html') === -1) {
+                    if (url.indexOf('?') === -1) {
+                        config.url += '?';
+                    } else {
+                        config.url += '&';
+                    }
+                    var token = $rootScope.CURRENT_USER ? $rootScope.CURRENT_USER.access_token : '';
+                    config.url += 'token=' + token;
+                }
+
+                return config;
+            },
+            'response': function (res) {
+                return res;
+            },
+            'requestError': function (res) {
+                console.log('requestError', res);
+                return res;
+            },
+            'responseError': function (res) {
+                console.log('responseError', res);
+                if (res.status === 401) {
+                    console.log('error with 401')
+                }
+                return res;
+            }
+        }
+    }]);
