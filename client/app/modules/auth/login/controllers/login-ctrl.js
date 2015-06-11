@@ -3,7 +3,6 @@
 angular.module('app.auth')
     .controller('LoginCtrl', ['$scope', '$rootScope', 'authServ', '$location', 'AccessServ',
         function ($scope, $rootScope, authServ, $location, AccessServ) {
-
             $scope.user = {
                 "email": "admin@admin.com",
                 "password": "123456"
