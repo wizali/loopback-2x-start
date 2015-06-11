@@ -144,9 +144,9 @@ angular.module('app.auth')
 
             this.logout = function () {
                 CURRENT_USER = $rootScope.CURRENT_USER = {};
-                localStorage.itms_user_access_token = '';
-                localStorage.itms_user_id = '';
-                localStorage.itms_user_name = '';
+                localStorage.removeItem('itms_user_access_token');
+                localStorage.removeItem('itms_user_id');
+                localStorage.removeItem('itms_user_name');
             };
 
             //获取当前用户的权限
